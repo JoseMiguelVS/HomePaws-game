@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
             );
         }
 
-        // Detectar cambio de dirección
+        // Detectar cambio de direcciï¿½n
         if (moveInput != 0 && lastDirection != 0)
         {
             if (Mathf.Sign(moveInput) != Mathf.Sign(lastDirection))
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // Guardar última dirección
+        // Guardar ï¿½ltima direcciï¿½n
         if (moveInput != 0)
         {
             lastDirection = moveInput;
