@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    [Header("Detecci髇 del suelo")]
+    [Header("Detecci贸n del suelo")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.15f;
     public LayerMask groundLayer;
@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (rb == null || animator == null)
             return;
 
-        // Actualizar la detecci髇 del suelo antes de leer el salto.
+        // Actualizar la detecci贸n del suelo antes de leer el salto.
         CheckGrounded();
 
         moveInput = Input.GetAxisRaw("Horizontal");
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
             jumpRequested = true;
         }
 
-        // Girar el personaje y detectar cambios de direcci髇.
+        // Girar el personaje y detectar cambios de direcci贸n.
         if (moveInput != 0)
         {
             if (lastDirection != 0 &&
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity.y
         );
 
-        // Ejecutar y consumir una 鷑ica petici髇 de salto.
+        // Ejecutar y consumir una 煤nica petici贸n de salto.
         if (jumpRequested)
         {
             if (isGrounded)
@@ -160,14 +160,14 @@ public class PlayerController : MonoBehaviour
     {
         int hash = Animator.StringToHash(animationName);
 
-        // Evitar reiniciar la misma animaci髇 en cada fotograma.
+        // Evitar reiniciar la misma animaci贸n en cada fotograma.
         if (currentAnimationHash == hash)
             return;
 
         if (!animator.HasState(0, hash))
         {
             Debug.LogWarning(
-                "No se encuentra el estado de animaci髇: " +
+                "No se encuentra el estado de animaci贸n: " +
                 animationName +
                 ". Revisa su nombre en el Animator."
             );
@@ -178,8 +178,8 @@ public class PlayerController : MonoBehaviour
         currentAnimationHash = hash;
     }
 
-    // A馻de un Animation Event al final de Sol_turn
-    // que llame a este m閠odo.
+    // A帽ade un Animation Event al final de Sol_turn
+    // que llame a este m茅todo.
     public void FinishTurn()
     {
         isTurning = false;
@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
             atun++;
 
             if (textAtun != null)
-                textAtun.text = atun.ToString();
+                textAtun.text = "Atun: " + atun;
         }
     }
 

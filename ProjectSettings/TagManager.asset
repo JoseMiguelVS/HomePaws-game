@@ -6,9 +6,12 @@ TagManager:
   tags:
   - Ground
   - Player1
+  - Player
   - tesoro
   - barril
   - trash
+  - atun
+  - caja
   layers:
   - Default
   - TransparentFX

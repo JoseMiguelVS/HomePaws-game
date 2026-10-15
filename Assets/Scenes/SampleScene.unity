@@ -334,7 +334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &153529154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   groundCheckRadius: 0.2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   idleAnimation: Sol_idle
   runAnimation: Sol_run
   jumpAnimation: Sol_jump
@@ -471,7 +471,7 @@ GameObject:
   - component: {fileID: 190193743}
   - component: {fileID: 190193744}
   - component: {fileID: 190193745}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PlayerSol
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1051,7 +1051,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 668033730}
-  - component: {fileID: 668033731}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -1074,30 +1073,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 153529157}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &668033731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668033729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c66547d758ec245b8eb7dd6c5c9bcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 5
-  jumpForce: 10
-  groundCheck: {fileID: 668033730}
-  groundCheckRadius: 0.2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  idleAnimation: Sol_idle
-  runAnimation: duo_run
-  jumpAnimation: Sol_jump
-  fallAnimation: Sol_fall
-  turnAnimation: Sol_turn
 --- !u!1 &735426221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1466,13 +1441,13 @@ GameObject:
   - component: {fileID: 1033136205}
   - component: {fileID: 1033136204}
   - component: {fileID: 1033136203}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PlayerEstrella
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1033136203
 MonoBehaviour:
   m_ObjectHideFlags: 0
