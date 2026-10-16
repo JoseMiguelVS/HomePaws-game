@@ -1,8 +1,12 @@
-
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Gestiona el menú del juego. Sirve como pantalla de bienvenida al
+/// iniciar la partida y como menú de pausa mientras se juega.
+/// </summary>
 public class MenuPausa : MonoBehaviour
 {
     [Header("Paneles de la interfaz")]
@@ -11,37 +15,73 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private GameObject menuConfig;
     [SerializeField] private GameObject imagenFondo;
 
-    [Header("Configuraci�n de sonido")]
+    [Tooltip("Botón de pausa de la esquina. Se oculta mientras el menú está abierto.")]
+    [SerializeField] private GameObject botonPausa;
+
+    [Header("Ayuda en pantalla")]
+    [Tooltip("Texto de ayuda de los controles. Se oculta durante el menú y cuando el jugador se mueve o salta.")]
+    [SerializeField] private GameObject ayudaControles;
+
+    [Header("Configuración de sonido")]
     [SerializeField] private Slider sliderVolumen;
 
-    private bool estaPausado = false;
+    [Header("Menú de bienvenida")]
+    [Tooltip("Mostrar el menú al iniciar la partida (pantalla de bienvenida).")]
+    [SerializeField] private bool mostrarMenuAlIniciar = true;
+
+    [Tooltip("Título que se muestra en la pantalla de bienvenida.")]
+    [SerializeField] private string tituloBienvenida = "HomePaws";
+
+    [Tooltip("Texto del botón que empieza la partida.")]
+    [SerializeField] private string textoBotonJugar = "Iniciar juego";
+
+    [Tooltip("Título que se muestra al pausar la partida.")]
+    [SerializeField] private string tituloPausa = "Menu de Pausa";
+
+    [Tooltip("Texto del botón que continúa la partida.")]
+    [SerializeField] private string textoBotonContinuar = "Continuar";
+
+    [Tooltip("Texto del título del menú (opcional).")]
+    [SerializeField] private TMP_Text tituloMenu;
+
+    [Tooltip("Texto del botón de jugar/continuar (opcional).")]
+    [SerializeField] private TMP_Text textoBotonPlay;
+
+    private bool estaPausado;
+    private bool yaEmpezado;
+    private bool ayudaVisibleAntesDePausar;
+
+    public bool EstaPausado
+    {
+        get { return estaPausado; }
+    }
 
     private void Start()
     {
-        Time.timeScale = 1f;
         estaPausado = false;
-
-        if (panel != null)
-            panel.SetActive(false);
-
-        if (menuPrincipal != null)
-            menuPrincipal.SetActive(false);
-
-        if (menuConfig != null)
-            menuConfig.SetActive(false);
-
-        if (imagenFondo != null)
-            imagenFondo.SetActive(false);
+        yaEmpezado = false;
+        ayudaVisibleAntesDePausar = false;
 
         if (sliderVolumen != null)
         {
             sliderVolumen.value = AudioListener.volume;
             sliderVolumen.onValueChanged.AddListener(CambiarVolumen);
         }
+
+        if (mostrarMenuAlIniciar)
+        {
+            // Pantalla de bienvenida: el juego espera a que se pulse "Iniciar juego".
+            MostrarMenu();
+            ActualizarTextos(true);
+        }
+        else
+        {
+            ContinuarJuego();
+        }
     }
 
-    // Abrir el men� y pausar el juego
-    public void PausarJuego()
+    // Mostrar el menú (bienvenida o pausa) y detener el juego.
+    private void MostrarMenu()
     {
         estaPausado = true;
         Time.timeScale = 0f;
@@ -57,9 +97,25 @@ public class MenuPausa : MonoBehaviour
 
         if (imagenFondo != null)
             imagenFondo.SetActive(true);
+
+        if (botonPausa != null)
+            botonPausa.SetActive(false);
+
+        // La ayuda solo debe verse mientras se juega.
+        ayudaVisibleAntesDePausar = ayudaControles != null && ayudaControles.activeSelf;
+
+        if (ayudaControles != null)
+            ayudaControles.SetActive(false);
     }
 
-    // Cerrar el men� y continuar jugando
+    // Abrir el menú y pausar el juego
+    public void PausarJuego()
+    {
+        MostrarMenu();
+        ActualizarTextos(false);
+    }
+
+    // Cerrar el menú y continuar jugando
     public void ContinuarJuego()
     {
         estaPausado = false;
@@ -76,9 +132,20 @@ public class MenuPausa : MonoBehaviour
 
         if (imagenFondo != null)
             imagenFondo.SetActive(false);
+
+        if (botonPausa != null)
+            botonPausa.SetActive(true);
+
+        // La ayuda aparece la primera vez que se empieza a jugar,
+        // o si estaba visible justo antes de pausar.
+        bool mostrarAyuda = !yaEmpezado || ayudaVisibleAntesDePausar;
+        yaEmpezado = true;
+
+        if (ayudaControles != null)
+            ayudaControles.SetActive(mostrarAyuda);
     }
 
-    // Abrir configuraci�n sin reanudar el juego
+    // Abrir configuración sin reanudar el juego
     public void AbrirConfiguracion()
     {
         if (menuPrincipal != null)
@@ -88,7 +155,7 @@ public class MenuPausa : MonoBehaviour
             menuConfig.SetActive(true);
     }
 
-    // Volver desde configuraci�n al men� de pausa
+    // Volver desde configuración al menú de pausa
     public void VolverAlMenuPausa()
     {
         if (menuConfig != null)
@@ -96,6 +163,16 @@ public class MenuPausa : MonoBehaviour
 
         if (menuPrincipal != null)
             menuPrincipal.SetActive(true);
+    }
+
+    // Cambiar los textos según se muestre la bienvenida o la pausa
+    private void ActualizarTextos(bool bienvenida)
+    {
+        if (tituloMenu != null)
+            tituloMenu.text = bienvenida ? tituloBienvenida : tituloPausa;
+
+        if (textoBotonPlay != null)
+            textoBotonPlay.text = bienvenida ? textoBotonJugar : textoBotonContinuar;
     }
 
     // Ajustar el volumen general
@@ -114,7 +191,7 @@ public class MenuPausa : MonoBehaviour
         );
     }
 
-    // Volver a la escena del men� principal
+    // Volver a la escena del menú principal
     public void IrAlMenuPrincipal()
     {
         Time.timeScale = 1f;
