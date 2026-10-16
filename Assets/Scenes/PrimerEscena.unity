@@ -406,7 +406,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -3828166051918459603, guid: 5efecd8f48ce0b647b35e9388975e9d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -578,7 +578,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -7711897285893103262, guid: 896d92792b9145245bd9ef4639de6985, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890b22e0a289ee845a2f84e292559cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  target: {fileID: 190193737}
+  target: {fileID: 153529157}
   smoothSpeed: 5
 --- !u!1 &521863567
 GameObject:
@@ -2904,7 +2904,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1617020953}
@@ -3173,7 +3173,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 10
   m_MaskInteraction: 0
   m_Sprite: {fileID: -4375554729249269423, guid: 5055b13a307e5784eb697f699bb6eaed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -7641,7 +7641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1633293408
 MonoBehaviour:
   m_ObjectHideFlags: 0
