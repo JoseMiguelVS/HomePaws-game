@@ -21,7 +21,6 @@ public class FallDetector : MonoBehaviour
                     rb.angularVelocity = 0f;
                 }
 
-                // Teletransportamos al último punto seguro registrado
                 collision.transform.position = checkpoint.lastSafePosition;
             }
             else
