@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890b22e0a289ee845a2f84e292559cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraFollow
-  target: {fileID: 153529157}
+  target: {fileID: 190193737}
   smoothSpeed: 5
 --- !u!1 &521863567
 GameObject:
@@ -7641,7 +7641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1633293408
 MonoBehaviour:
   m_ObjectHideFlags: 0

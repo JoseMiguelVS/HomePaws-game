@@ -194,7 +194,7 @@ public class PlayerController : MonoBehaviour
             atun++;
 
             if (textAtun != null)
-                textAtun.text = "Atun: " + atun;
+                textAtun.text = "Coleccionable: " + atun;
         }
     }
 
