@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5342047657016715218}
   - component: {fileID: 283137180518523418}
   - component: {fileID: 2836612408216770106}
+  - component: {fileID: 278719689635629330}
   m_Layer: 0
   m_Name: atun
   m_TagString: atun
@@ -83,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3024148994009115796, guid: 46137158ccce3774ea28ed52c5a85d29, type: 3}
+  m_Sprite: {fileID: -283045753658631595, guid: ffe191576a03be142b3aa01120fe2a19, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -103,7 +104,7 @@ Animator:
   m_GameObject: {fileID: 2462333939036533527}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b73a768e53d4fc9458e14c24dd5c1615, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2ae4f28f4a3d1c543a79750aa349ca11, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -152,3 +153,17 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_Direction: 0
+--- !u!114 &278719689635629330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2462333939036533527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f2d10a278649f4458200bd63c474433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemEnergia
+  recargaEnergia: 30
+  puntosQueOtorga: 1
