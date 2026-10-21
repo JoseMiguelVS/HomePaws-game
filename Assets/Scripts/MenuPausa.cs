@@ -56,6 +56,19 @@ public class MenuPausa : MonoBehaviour
         get { return estaPausado; }
     }
 
+    private void Update()
+    {
+        // Escape abre y cierra el menu mientras se juega. Asi el menu de pausa
+        // funciona en cualquier nivel, aunque no tenga boton en pantalla.
+        if (!Input.GetKeyDown(KeyCode.Escape))
+            return;
+
+        if (estaPausado)
+            ContinuarJuego();
+        else
+            PausarJuego();
+    }
+
     private void Start()
     {
         estaPausado = false;
@@ -64,7 +77,7 @@ public class MenuPausa : MonoBehaviour
 
         if (sliderVolumen != null)
         {
-            sliderVolumen.value = AudioListener.volume;
+            sliderVolumen.value = GestorAudio.Instancia.VolumenMusica;
             sliderVolumen.onValueChanged.AddListener(CambiarVolumen);
         }
 
@@ -76,7 +89,7 @@ public class MenuPausa : MonoBehaviour
         }
         else
         {
-            ContinuarJuego();
+            OcultarMenu();
         }
     }
 
@@ -111,12 +124,20 @@ public class MenuPausa : MonoBehaviour
     // Abrir el menú y pausar el juego
     public void PausarJuego()
     {
+        GestorAudio.Sonar(Sonido.Pausa, 0.8f);
         MostrarMenu();
         ActualizarTextos(false);
     }
 
     // Cerrar el menú y continuar jugando
     public void ContinuarJuego()
+    {
+        GestorAudio.Sonar(Sonido.Boton, 0.7f);
+        OcultarMenu();
+    }
+
+    // Cierra el menu sin reproducir sonido (arranque del nivel).
+    private void OcultarMenu()
     {
         estaPausado = false;
         Time.timeScale = 1f;
@@ -148,6 +169,8 @@ public class MenuPausa : MonoBehaviour
     // Abrir configuración sin reanudar el juego
     public void AbrirConfiguracion()
     {
+        GestorAudio.Sonar(Sonido.Boton, 0.7f);
+
         if (menuPrincipal != null)
             menuPrincipal.SetActive(false);
 
@@ -158,6 +181,8 @@ public class MenuPausa : MonoBehaviour
     // Volver desde configuración al menú de pausa
     public void VolverAlMenuPausa()
     {
+        GestorAudio.Sonar(Sonido.Boton, 0.7f);
+
         if (menuConfig != null)
             menuConfig.SetActive(false);
 
@@ -178,7 +203,7 @@ public class MenuPausa : MonoBehaviour
     // Ajustar el volumen general
     public void CambiarVolumen(float volumen)
     {
-        AudioListener.volume = volumen;
+        GestorAudio.AjustarVolumenGeneral(volumen);
     }
 
     // Reiniciar el nivel actual

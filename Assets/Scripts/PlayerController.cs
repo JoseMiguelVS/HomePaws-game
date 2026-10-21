@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool isTurning;
     private bool jumpRequested;
+    private bool estabaEnSuelo = true;
 
     private float lastDirection;
     private float moveInput;
@@ -93,6 +94,12 @@ public class PlayerController : MonoBehaviour
         // Comprobar de nuevo el suelo antes de ejecutar el salto.
         CheckGrounded();
 
+        // Sonido al tomar contacto con el suelo tras una caida o un salto.
+        if (isGrounded && !estabaEnSuelo)
+            GestorAudio.Sonar(Sonido.Aterrizaje, 0.7f);
+
+        estabaEnSuelo = isGrounded;
+
         // Movimiento horizontal.
         rb.linearVelocity = new Vector2(
             moveInput * moveSpeed,
@@ -110,6 +117,9 @@ public class PlayerController : MonoBehaviour
                 );
 
                 isGrounded = false;
+                estabaEnSuelo = false;
+
+                GestorAudio.Sonar(Sonido.Salto, 0.8f);
             }
 
             jumpRequested = false;
@@ -192,6 +202,8 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             atun++;
+
+            GestorAudio.Sonar(Sonido.Moneda);
 
             if (textAtun != null)
                 textAtun.text = "Atun: " + atun;

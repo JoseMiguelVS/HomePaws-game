@@ -19,6 +19,7 @@ public class Puerta : MonoBehaviour
 
     private Vector3 posicionCerrada;
     private bool objetivoAbierta;
+    private bool estadoAnterior;
 
     public bool EstaAbierta => objetivoAbierta;
 
@@ -29,6 +30,7 @@ public class Puerta : MonoBehaviour
 
         posicionCerrada = parteMovil.localPosition;
         objetivoAbierta = empiezaAbierta;
+        estadoAnterior = objetivoAbierta;
 
         if (empiezaAbierta)
             parteMovil.localPosition = posicionCerrada + desplazamientoAbierta;
@@ -40,6 +42,13 @@ public class Puerta : MonoBehaviour
 
     private void Update()
     {
+        // Suena solo cuando el estado cambia, no en cada fotograma.
+        if (objetivoAbierta != estadoAnterior)
+        {
+            estadoAnterior = objetivoAbierta;
+            GestorAudio.Sonar(Sonido.Puerta, 0.7f);
+        }
+
         Vector3 destino = posicionCerrada +
             (objetivoAbierta ? desplazamientoAbierta : Vector3.zero);
 

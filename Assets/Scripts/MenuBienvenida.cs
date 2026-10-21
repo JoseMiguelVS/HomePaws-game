@@ -23,6 +23,8 @@ public class MenuBienvenida : MonoBehaviour
     {
         Time.timeScale = 1f;
 
+        GestorAudio.Sonar(Sonido.Boton, 0.8f);
+
         if (string.IsNullOrEmpty(escenaJuego))
         {
             Debug.LogError("MenuBienvenida: falta el nombre de la escena del juego.");
@@ -56,6 +58,8 @@ public class MenuBienvenida : MonoBehaviour
     public void Salir()
     {
         Time.timeScale = 1f;
+
+        GestorAudio.Sonar(Sonido.Boton, 0.8f);
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

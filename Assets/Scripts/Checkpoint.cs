@@ -76,6 +76,8 @@ public class Checkpoint : MonoBehaviour
 
         if (sonidoActivar != null)
             sonidoActivar.Play();
+        else
+            GestorAudio.Sonar(Sonido.Checkpoint, 0.8f);
 
         alActivar?.Invoke();
 

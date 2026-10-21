@@ -30,6 +30,8 @@ public class OnTriggerFin : MonoBehaviour
         if (m_gameObject != null)
             m_gameObject.SetActive(true);
 
+        GestorAudio.Sonar(Sonido.Meta);
+
         Debug.Log("Nivel completado.");
 
         if (m_delay > 0f)
@@ -42,7 +44,7 @@ public class OnTriggerFin : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(m_nextSceneName))
         {
-            SceneManager.LoadScene(m_nextSceneName);
+            SceneManager.LoadScene(m_nextSceneName.Trim());
             return;
         }
 
