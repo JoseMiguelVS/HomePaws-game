@@ -15,7 +15,14 @@ public class GestorReaparicion : MonoBehaviour
     [Header("Jugador")]
     [Tooltip("Si se deja vacio se busca por etiqueta al empezar.")]
     [SerializeField] private Transform jugador;
+
+    [Tooltip("Segundo personaje del duo. Se recoloca junto al primero al reaparecer.")]
+    [SerializeField] private Transform jugadorSecundario;
+
     [SerializeField] private string etiquetaJugador = "Player";
+
+    [Tooltip("Separacion horizontal entre los dos personajes al reaparecer.")]
+    [SerializeField] private float separacionDuo = 1.2f;
 
     [Header("Punto de partida")]
     [Tooltip("Donde reaparece el jugador mientras no haya tocado ningun checkpoint.")]
@@ -85,6 +92,8 @@ public class GestorReaparicion : MonoBehaviour
 
         if (jugador.position.y < limiteCaidaY)
             Reaparecer();
+        else if (jugadorSecundario != null && jugadorSecundario.position.y < limiteCaidaY)
+            Reaparecer();
     }
 
     private void BuscarJugador()
@@ -146,10 +155,45 @@ public class GestorReaparicion : MonoBehaviour
             jugador.position = destino;
         }
 
+        RecolocarSecundario(destino);
+
         if (reiniciarPuzzleAlReaparecer && reiniciadorPuzzle != null)
             reiniciadorPuzzle.ReiniciarTodo();
 
         alReaparecer?.Invoke();
+    }
+
+    /// <summary>
+    /// Indica quien es el jugador activo y quien el companero. Lo llama
+    /// ControlDuo cada vez que se cambia de personaje.
+    /// </summary>
+    public void ConfigurarJugadores(Transform principal, Transform secundario)
+    {
+        jugador = principal;
+        jugadorSecundario = secundario;
+        cuerpo = null;
+    }
+
+    private void RecolocarSecundario(Vector3 destino)
+    {
+        if (jugadorSecundario == null || jugadorSecundario == jugador)
+            return;
+
+        Vector2 posicion = new Vector2(destino.x - separacionDuo, destino.y);
+
+        Rigidbody2D rbSecundario = jugadorSecundario.GetComponent<Rigidbody2D>();
+
+        if (rbSecundario != null)
+        {
+            rbSecundario.linearVelocity = Vector2.zero;
+            rbSecundario.angularVelocity = 0f;
+            rbSecundario.rotation = 0f;
+            rbSecundario.position = posicion;
+        }
+        else
+        {
+            jugadorSecundario.position = posicion;
+        }
     }
 
     // Reaparece en el punto de partida (sin borrar los checkpoints).

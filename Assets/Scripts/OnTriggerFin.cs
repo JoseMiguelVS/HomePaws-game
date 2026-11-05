@@ -15,6 +15,9 @@ public class OnTriggerFin : MonoBehaviour
     [Tooltip("Segundos que se muestra el mensaje antes de cambiar de escena.")]
     [SerializeField] private float m_delay = 2f;
 
+    [Tooltip("Aviso que muestra el HUD al llegar a la meta. Se puede dejar vacio.")]
+    [SerializeField] private string mensajeFinal = "Nivel completado. Volviendo al menu...";
+
     private bool m_triggered;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -31,6 +34,12 @@ public class OnTriggerFin : MonoBehaviour
             m_gameObject.SetActive(true);
 
         GestorAudio.Sonar(Sonido.Meta);
+
+        if (ControlDuo.Instancia != null)
+            ControlDuo.Instancia.BloquearControl(true);
+
+        if (HUD_Duo.Instancia != null && !string.IsNullOrEmpty(mensajeFinal))
+            HUD_Duo.Mensaje(mensajeFinal, Mathf.Max(2f, m_delay), new Color(0.45f, 0.95f, 0.55f, 1f));
 
         Debug.Log("Nivel completado.");
 

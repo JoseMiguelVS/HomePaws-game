@@ -315,6 +315,7 @@ MonoBehaviour:
   m_gameObject: {fileID: 700000011}
   m_nextSceneName: Level2
   m_delay: 2
+  mensajeFinal: Nivel completado. Volviendo al menu...
 --- !u!1 &153529153
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +360,7 @@ MonoBehaviour:
   fallAnimation: Sol_fall
   turnAnimation: Sol_turn
   textAtun: {fileID: 700000004}
+  controlActivo: 1
 --- !u!212 &153529155
 SpriteRenderer:
   serializedVersion: 2
@@ -531,6 +533,7 @@ MonoBehaviour:
   fallAnimation: Sol_fall
   turnAnimation: Sol_turn
   textAtun: {fileID: 700000004}
+  controlActivo: 1
 --- !u!212 &190193741
 SpriteRenderer:
   serializedVersion: 2
@@ -2389,7 +2392,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GestorReaparicion
   jugador: {fileID: 0}
+  jugadorSecundario: {fileID: 0}
   etiquetaJugador: Player
+  separacionDuo: 1.2
   puntoInicial: {fileID: 0}
   reaparecerAlCaer: 1
   limiteCaidaY: -30
@@ -3000,7 +3005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &882000002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3669,6 +3674,7 @@ MonoBehaviour:
   fallAnimation: Estrella_fall
   turnAnimation: Estrella_turn
   textAtun: {fileID: 700000004}
+  controlActivo: 1
 --- !u!61 &1033136204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7499,6 +7505,11 @@ MonoBehaviour:
   - Caja
   cantidadNecesaria: 1
   permanecePulsada: 0
+  masaMinima: 0
+  spriteRenderer: {fileID: 0}
+  spriteArriba: {fileID: 0}
+  spriteAbajo: {fileID: 0}
+  colorPulsada: {r: 0.45, g: 0.95, b: 0.5, a: 1}
   alPulsar:
     m_PersistentCalls:
       m_Calls:
@@ -9855,6 +9866,10 @@ MonoBehaviour:
   escalaGravedad: 3
   arrastreLineal: 2
   arrastreAngular: 4
+  fuerzaNecesaria: 2
+  fuerzaExtra: 16
+  frenarPersonajesDebiles: 1
+  esperaAviso: 3
 --- !u!50 &2142009480
 Rigidbody2D:
   serializedVersion: 5
