@@ -104,7 +104,12 @@ public class HUD_Duo : MonoBehaviour
             }
 
             if (controlDuo.DuoActivo)
+            {
                 companero = "Compa\u00f1ero: " + controlDuo.NombreInactivo;
+
+                if (controlDuo.EnPuzzle)
+                    companero += " (esperando)";
+            }
             else
                 habilidad = "Busca a Estrella para formar el duo";
         }
@@ -156,7 +161,15 @@ public class HUD_Duo : MonoBehaviour
 
         string objetivo;
 
-        if (controlDuo != null && !controlDuo.DuoActivo)
+        if (controlDuo != null && controlDuo.EnPuzzle)
+        {
+            string nombre = string.IsNullOrEmpty(controlDuo.NombrePuzzle)
+                ? "Puzle"
+                : controlDuo.NombrePuzzle;
+
+            objetivo = "Puzle: " + nombre + ". TAB cambia de personaje.";
+        }
+        else if (controlDuo != null && !controlDuo.DuoActivo)
         {
             objetivo = "Encuentra a Estrella en el alcantarillado.";
         }

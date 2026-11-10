@@ -27,8 +27,21 @@ public class ControlDuo : MonoBehaviour
     [SerializeField] private KeyCode teclaSol = KeyCode.Alpha1;
     [SerializeField] private KeyCode teclaEstrella = KeyCode.Alpha2;
 
+    [Header("Nivel 3")]
+    [Tooltip("Empezar la escena con Estrella ya en el equipo (sin el encuentro).")]
+    [SerializeField] private bool empezarConDuo = false;
+
+    [Tooltip("Fuera de los puzles el companero inactivo sigue al personaje activo.")]
+    [SerializeField] private bool companeroSigue = false;
+
     /// <summary>True cuando Estrella ya se ha unido al equipo.</summary>
     public bool DuoActivo { get; private set; }
+
+    /// <summary>True mientras el jugador esta dentro de una zona de puzle.</summary>
+    public bool EnPuzzle { get; private set; }
+
+    /// <summary>Nombre del puzle activo (lo pone ZonaPuzzle).</summary>
+    public string NombrePuzzle { get; private set; }
 
     /// <summary>True mientras un dialogo o una cinematica bloquea el control.</summary>
     public bool ControlBloqueado { get; private set; }
@@ -67,6 +80,15 @@ public class ControlDuo : MonoBehaviour
     private void Awake()
     {
         Instancia = this;
+
+        // Nivel 3: el duo ya empieza junto, sin conversacion de encuentro.
+        if (empezarConDuo)
+        {
+            DuoActivo = true;
+
+            if (estrella != null)
+                estrella.gameObject.SetActive(true);
+        }
 
         if (sol != null)
             sol.EstablecerControl(false);
@@ -189,11 +211,81 @@ public class ControlDuo : MonoBehaviour
 
             if (estrella != null)
                 estrella.EstablecerControl(false);
+
+            ActualizarSeguimiento();
         }
         else
         {
             AplicarControl();
         }
+    }
+
+    /// <summary>
+    /// Avisa de que el jugador activo ha entrado en un puzle: el companero
+    /// deja de seguir y se queda esperando. Lo llama ZonaPuzzle.
+    /// </summary>
+    public void EntrarPuzzle(string nombre)
+    {
+        if (EnPuzzle && NombrePuzzle == nombre)
+            return;
+
+        EnPuzzle = true;
+        NombrePuzzle = nombre;
+
+        ActualizarSeguimiento();
+    }
+
+    /// <summary>
+    /// Sale de la zona de puzle. Si el companero se quedo lejos, se reunen
+    /// junto al jugador activo y se vuelve a activar el seguimiento.
+    /// </summary>
+    public void SalirPuzzle()
+    {
+        if (!EnPuzzle)
+            return;
+
+        EnPuzzle = false;
+        NombrePuzzle = null;
+
+        Reagrupar();
+        ActualizarSeguimiento();
+    }
+
+    /// <summary>Coloca la camara encima del personaje activo sin suavizado.</summary>
+    public void CentrarCamara()
+    {
+        if (camara == null || Activo == null)
+            return;
+
+        camara.target = Activo.transform;
+
+        Vector3 posicion = camara.transform.position;
+        posicion.x = Activo.transform.position.x;
+        posicion.y = Activo.transform.position.y;
+        camara.transform.position = posicion;
+    }
+
+    private void Reagrupar()
+    {
+        if (!DuoActivo || Activo == null || Inactivo == null)
+            return;
+
+        if (Vector2.Distance(Activo.transform.position, Inactivo.transform.position) <= 2.5f)
+            return;
+
+        float lado = Activo.transform.localScale.x >= 0f ? -1f : 1f;
+        Vector3 destino = Activo.transform.position + Vector3.right * 1.2f * lado;
+
+        Rigidbody2D cuerpo = Inactivo.GetComponent<Rigidbody2D>();
+
+        if (cuerpo != null)
+        {
+            cuerpo.linearVelocity = Vector2.zero;
+            cuerpo.angularVelocity = 0f;
+            cuerpo.position = destino;
+        }
+
+        Inactivo.transform.position = destino;
     }
 
     private void AplicarControl()
@@ -203,6 +295,33 @@ public class ControlDuo : MonoBehaviour
 
         if (estrella != null)
             estrella.EstablecerControl(!ControlBloqueado && DuoActivo && Activo == estrella);
+
+        ActualizarSeguimiento();
+    }
+
+    // Solo el companero inactivo sigue, y solo fuera de los puzles.
+    private void ActualizarSeguimiento()
+    {
+        bool seguir = companeroSigue
+            && DuoActivo
+            && !EnPuzzle
+            && !ControlBloqueado
+            && Activo != null
+            && Inactivo != null;
+
+        CompaneroSeguir seguidorActivo = Activo != null ? Activo.GetComponent<CompaneroSeguir>() : null;
+        CompaneroSeguir seguidorInactivo = Inactivo != null ? Inactivo.GetComponent<CompaneroSeguir>() : null;
+
+        if (seguidorActivo != null)
+            seguidorActivo.Detener();
+
+        if (seguidorInactivo == null)
+            return;
+
+        if (seguir)
+            seguidorInactivo.Seguir(Activo.transform);
+        else
+            seguidorInactivo.Detener();
     }
 
     private void SincronizarCamara()

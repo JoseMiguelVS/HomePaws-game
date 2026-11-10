@@ -127,6 +127,15 @@ public class GestorReaparicion : MonoBehaviour
         puntoActual = checkpoint.PuntoMundo;
     }
 
+    /// <summary>
+    /// Cambia el punto de reaparicion sin tocar los checkpoints. Lo usa
+    /// CambioSeccion al pasar de las alcantarillas a los tejados.
+    /// </summary>
+    public void EstablecerPuntoActual(Vector3 punto)
+    {
+        puntoActual = punto;
+    }
+
     // Coloca al jugador en el ultimo punto seguro y avisa a quien escuche.
     public void Reaparecer()
     {
