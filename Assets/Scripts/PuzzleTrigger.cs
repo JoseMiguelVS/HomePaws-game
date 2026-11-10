@@ -11,13 +11,28 @@ public class PuzzleTrigger : MonoBehaviour
     [Tooltip("Si se marca, los obstaculos se desactivan al salir el jugador.")]
     [SerializeField] private bool m_desactivarAlSalir = true;
 
+    private bool avisoMostrado;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player"))
             return;
 
         if (m_obstaculos != null)
+        {
             m_obstaculos.SetActive(true);
+            return;
+        }
+
+        // Aviso util: sin grupo asignado el disparador no hace nada.
+        if (!avisoMostrado)
+        {
+            avisoMostrado = true;
+            Debug.LogWarning(
+                "PuzzleTrigger de '" + name + "': falta asignar 'm_obstaculos' en el Inspector.",
+                this
+            );
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
