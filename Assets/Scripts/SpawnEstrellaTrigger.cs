@@ -8,7 +8,7 @@ public class SpawnEstrellaTrigger : MonoBehaviour
 
     [Header("Referencias de UI (Narrativa)")]
     public GameObject panelNarrativa; 
-    public Button botonContinuar;    
+    public Button botonContinuar;     
 
     private bool yaAparecio = false;
 
