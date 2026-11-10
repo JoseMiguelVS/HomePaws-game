@@ -242,7 +242,7 @@ public class PlayerController : MonoBehaviour
             GestorAudio.Sonar(Sonido.Moneda);
 
             if (textAtun != null)
-                textAtun.text = "Atun: " + atun;
+                textAtun.text = "Coleccionable: " + atun;
         }
     }
 
