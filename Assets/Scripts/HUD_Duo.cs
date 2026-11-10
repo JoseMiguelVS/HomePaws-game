@@ -19,6 +19,13 @@ public class HUD_Duo : MonoBehaviour
     [SerializeField] private Palanca palanca;
     [SerializeField] private MenuPausa menuPausa;
 
+    [Header("Niveles de un solo personaje")]
+    [Tooltip("Objetivo que muestra el HUD cuando la escena no tiene ControlDuo.")]
+    [SerializeField] private string objetivoSinDuo = "Recoge los atunes y llega a la salida.";
+
+    [Tooltip("Habilidad que muestra el HUD cuando la escena no tiene ControlDuo.")]
+    [SerializeField] private string habilidadSinDuo = "Empuja objetos pesados";
+
     [Header("Colores")]
     [SerializeField] private Color colorSol = new Color(1f, 0.68f, 0.22f, 1f);
     [SerializeField] private Color colorEstrella = new Color(0.4f, 0.85f, 1f, 1f);
@@ -77,20 +84,30 @@ public class HUD_Duo : MonoBehaviour
     {
         string nombre = "SOL";
         string companero = "";
-        string habilidad = "Empuja cajas pesadas y mueve palancas";
+        string habilidad;
         Color color = colorSol;
 
-        if (controlDuo != null && controlDuo.NombreActivo == "Estrella")
+        if (controlDuo == null)
         {
-            nombre = "ESTRELLA";
-            color = colorEstrella;
-            habilidad = "Salto alto: alcanza la llave";
+            // Nivel de un solo personaje (por ejemplo PrimerEscena).
+            habilidad = habilidadSinDuo;
         }
-
-        if (controlDuo != null && controlDuo.DuoActivo)
-            companero = "Compa\u00f1ero: " + controlDuo.NombreInactivo;
         else
-            habilidad = "Busca a Estrella para formar el duo";
+        {
+            habilidad = "Empuja cajas pesadas y mueve palancas";
+
+            if (controlDuo.NombreActivo == "Estrella")
+            {
+                nombre = "ESTRELLA";
+                color = colorEstrella;
+                habilidad = "Salto alto: alcanza la llave";
+            }
+
+            if (controlDuo.DuoActivo)
+                companero = "Compa\u00f1ero: " + controlDuo.NombreInactivo;
+            else
+                habilidad = "Busca a Estrella para formar el duo";
+        }
 
         Rect panel = new Rect(26f, 26f, 360f, 132f);
         InterfazJuego.Panel(new Rect(panel.x + 4f, panel.y + 5f, panel.width, panel.height), new Color(0f, 0f, 0f, 0.3f));
@@ -147,9 +164,13 @@ public class HUD_Duo : MonoBehaviour
         {
             objetivo = "Abre la compuerta: resuelve los 3 candados.";
         }
-        else
+        else if (compuerta != null)
         {
             objetivo = "Compuerta abierta. Sigue hacia la salida.";
+        }
+        else
+        {
+            objetivo = objetivoSinDuo;
         }
 
         InterfazJuego.Etiqueta(
@@ -221,7 +242,9 @@ public class HUD_Duo : MonoBehaviour
 
         InterfazJuego.Etiqueta(
             new Rect(28f, InterfazJuego.Alto - 44f, 1100f, 30f),
-            "A / D mover   ·   Espacio saltar   ·   E interactuar   ·   TAB cambiar   ·   ESC pausa",
+            controlDuo != null && controlDuo.DuoActivo
+                ? "A / D mover   ·   Espacio saltar   ·   E interactuar   ·   TAB cambiar   ·   ESC pausa"
+                : "A / D mover   ·   Espacio saltar   ·   E interactuar   ·   ESC pausa",
             InterfazJuego.Estilo(18, new Color(0.95f, 0.94f, 0.88f, alpha))
         );
     }

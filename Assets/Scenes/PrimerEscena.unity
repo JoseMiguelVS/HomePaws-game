@@ -1444,7 +1444,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &700000002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7948,7 +7948,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1496432751
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8538,8 +8538,8 @@ MonoBehaviour:
   menuPrincipal: {fileID: 735426221}
   menuConfig: {fileID: 521863567}
   imagenFondo: {fileID: 1529746420}
-  botonPausa: {fileID: 1718298635}
-  ayudaControles: {fileID: 1496432750}
+  botonPausa: {fileID: 0}
+  ayudaControles: {fileID: 0}
   sliderVolumen: {fileID: 349906196}
   mostrarMenuAlIniciar: 0
   tituloBienvenida: HomePaws
@@ -8859,7 +8859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1718298636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9202,6 +9202,61 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1808029056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808029058}
+  - component: {fileID: 1808029057}
+  m_Layer: 0
+  m_Name: HUD_Duo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1808029057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808029056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d33c6b608b2d4479a947b863cbdbdd23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HUD_Duo
+  controlDuo: {fileID: 0}
+  compuerta: {fileID: 0}
+  palanca: {fileID: 0}
+  menuPausa: {fileID: 1633293412}
+  objetivoSinDuo: Recoge los atunes y llega a la salida.
+  habilidadSinDuo: Empuja objetos pesados
+  colorSol: {r: 1, g: 0.68, b: 0.22, a: 1}
+  colorEstrella: {r: 0.4, g: 0.85, b: 1, a: 1}
+  colorTexto: {r: 0.96, g: 0.94, b: 0.88, a: 1}
+  colorTextoSuave: {r: 0.68, g: 0.7, b: 0.76, a: 1}
+  colorFondo: {r: 0.045, g: 0.05, b: 0.075, a: 0.86}
+--- !u!4 &1808029058
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808029056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1821362396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10050,3 +10105,4 @@ SceneRoots:
   - {fileID: 870000011}
   - {fileID: 870000021}
   - {fileID: 870000031}
+  - {fileID: 1808029058}
