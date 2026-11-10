@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    [Header("Detección del suelo")]
+    [Header("Deteccion del suelo")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.15f;
     public LayerMask groundLayer;
@@ -22,12 +22,20 @@ public class PlayerController : MonoBehaviour
     [Header("Coleccionables")]
     public TMP_Text textAtun;
 
+    [Header("Control")]
+    [Tooltip("Lo activa y desactiva ControlDuo. Si esta apagado, el personaje se queda quieto en Idle.")]
+    public bool controlActivo = true;
+
+    /// <summary>Atun recogido en toda la partida (lo muestra el HUD).</summary>
+    public static int AtunTotal { get; private set; }
+
     private Rigidbody2D rb;
     private Animator animator;
 
     private bool isGrounded;
     private bool isTurning;
     private bool jumpRequested;
+    private bool estabaEnSuelo = true;
 
     private float lastDirection;
     private float moveInput;
@@ -52,18 +60,25 @@ public class PlayerController : MonoBehaviour
         if (rb == null || animator == null)
             return;
 
-        // Actualizar la detección del suelo antes de leer el salto.
+        // Actualizar la deteccion del suelo antes de leer el salto.
         CheckGrounded();
+
+        if (!controlActivo)
+        {
+            // El personaje inactivo del duo se queda quieto en Idle.
+            moveInput = 0f;
+            jumpRequested = false;
+            UpdateAnimation();
+            return;
+        }
 
         moveInput = Input.GetAxisRaw("Horizontal");
 
         // Registrar el salto solamente estando en el suelo.
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
             jumpRequested = true;
-        }
 
-        // Girar el personaje y detectar cambios de dirección.
+        // Girar el personaje y detectar cambios de direccion.
         if (moveInput != 0)
         {
             if (lastDirection != 0 &&
@@ -93,13 +108,19 @@ public class PlayerController : MonoBehaviour
         // Comprobar de nuevo el suelo antes de ejecutar el salto.
         CheckGrounded();
 
+        // Sonido al tomar contacto con el suelo tras una caida o un salto.
+        if (isGrounded && !estabaEnSuelo)
+            GestorAudio.Sonar(Sonido.Aterrizaje, 0.7f);
+
+        estabaEnSuelo = isGrounded;
+
         // Movimiento horizontal.
         rb.linearVelocity = new Vector2(
-            moveInput * moveSpeed,
+            controlActivo ? moveInput * moveSpeed : 0f,
             rb.linearVelocity.y
         );
 
-        // Ejecutar y consumir una única petición de salto.
+        // Ejecutar y consumir una unica peticion de salto.
         if (jumpRequested)
         {
             if (isGrounded)
@@ -110,10 +131,31 @@ public class PlayerController : MonoBehaviour
                 );
 
                 isGrounded = false;
+                estabaEnSuelo = false;
+
+                GestorAudio.Sonar(Sonido.Salto, 0.8f);
             }
 
             jumpRequested = false;
         }
+    }
+
+    /// <summary>
+    /// Activa o desactiva las entradas de este personaje. Lo usa ControlDuo
+    /// para que solo el personaje activo se mueva.
+    /// </summary>
+    public void EstablecerControl(bool activo)
+    {
+        controlActivo = activo;
+
+        if (activo)
+            return;
+
+        moveInput = 0f;
+        jumpRequested = false;
+
+        if (rb != null)
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
     }
 
     private void CheckGrounded()
@@ -139,13 +181,9 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded)
         {
             if (rb.linearVelocity.y > 0.05f)
-            {
                 PlayAnimation(jumpAnimation);
-            }
             else
-            {
                 PlayAnimation(fallAnimation);
-            }
         }
         else
         {
@@ -158,19 +196,22 @@ public class PlayerController : MonoBehaviour
 
     private void PlayAnimation(string animationName)
     {
+        if (string.IsNullOrEmpty(animationName))
+            return;
+
         int hash = Animator.StringToHash(animationName);
 
-        // Evitar reiniciar la misma animación en cada fotograma.
+        // Evitar reiniciar la misma animacion en cada fotograma.
         if (currentAnimationHash == hash)
             return;
 
         if (!animator.HasState(0, hash))
         {
-            Debug.LogWarning(
-                "No se encuentra el estado de animación: " +
-                animationName +
-                ". Revisa su nombre en el Animator."
-            );
+            // Estrella solo tiene Idle: si falta un estado, se usa Idle
+            // en vez de llenar la consola de avisos.
+            if (animationName != idleAnimation && !string.IsNullOrEmpty(idleAnimation))
+                PlayAnimation(idleAnimation);
+
             return;
         }
 
@@ -178,8 +219,8 @@ public class PlayerController : MonoBehaviour
         currentAnimationHash = hash;
     }
 
-    // Añade un Animation Event al final de Sol_turn
-    // que llame a este método.
+    // Anade un Animation Event al final de Sol_turn
+    // que llame a este metodo.
     public void FinishTurn()
     {
         isTurning = false;
@@ -188,10 +229,17 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!controlActivo)
+            return;
+
         if (collision.CompareTag("atun"))
         {
             Destroy(collision.gameObject);
-            atun++;
+
+            AtunTotal++;
+            atun = AtunTotal;
+
+            GestorAudio.Sonar(Sonido.Moneda);
 
             if (textAtun != null)
                 textAtun.text = "Coleccionable: " + atun;

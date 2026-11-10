@@ -313,9 +313,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OnTriggerFin
   m_gameObject: {fileID: 0}
-  m_parent: {fileID: 0}
-  m_target: {fileID: 0}
-  m_source: {fileID: 0}
+  m_nextSceneName: 
+  m_delay: 2
 --- !u!1 &153529153
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +358,7 @@ MonoBehaviour:
   jumpAnimation: Sol_jump
   fallAnimation: Sol_fall
   turnAnimation: Sol_turn
+  textAtun: {fileID: 0}
 --- !u!212 &153529155
 SpriteRenderer:
   serializedVersion: 2
@@ -530,6 +530,7 @@ MonoBehaviour:
   jumpAnimation: Sol_jump
   fallAnimation: Sol_fall
   turnAnimation: Sol_turn
+  textAtun: {fileID: 0}
 --- !u!212 &190193741
 SpriteRenderer:
   serializedVersion: 2
@@ -1472,6 +1473,7 @@ MonoBehaviour:
   jumpAnimation: Estrella_jump
   fallAnimation: Estrella_fall
   turnAnimation: Estrella_turn
+  textAtun: {fileID: 0}
 --- !u!61 &1033136204
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3317,8 +3319,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1212554718}
-  - {fileID: 735426222}
   - {fileID: 1529746421}
+  - {fileID: 735426222}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

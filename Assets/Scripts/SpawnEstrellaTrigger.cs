@@ -10,10 +10,16 @@ public class SpawnEstrellaTrigger : MonoBehaviour
     public GameObject panelNarrativa; 
     public Button botonContinuar;     
 
+    [Header("Audio")]
+    private AudioSource audioSource; // Componente de audio en este objeto
+
     private bool yaAparecio = false;
 
     void Start()
     {
+        // Obtenemos automáticamente el AudioSource del GameObject
+        audioSource = GetComponent<AudioSource>();
+
         if (panelNarrativa != null)
         {
             panelNarrativa.SetActive(false);
@@ -37,13 +43,19 @@ public class SpawnEstrellaTrigger : MonoBehaviour
                 estrellaObject.SetActive(true);
             }
 
+            // Reproducir el sonido del maullido
+            if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.Play();
+            }
+
             if (panelNarrativa != null)
             {
                 panelNarrativa.SetActive(true);
-                Time.timeScale = 0f; 
+                Time.timeScale = 0f; // Pausa el juego para mostrar la narrativa
             }
 
-            Debug.Log("¡Estrella apareció y se mostró la narrativa!");
+            Debug.Log("¡Estrella apareció, sonó el maullido y se mostró la narrativa!");
         }
     }
 
@@ -52,7 +64,7 @@ public class SpawnEstrellaTrigger : MonoBehaviour
         if (panelNarrativa != null)
         {
             panelNarrativa.SetActive(false);
-            Time.timeScale = 1f;
+            Time.timeScale = 1f; // Reanuda el juego
         }
 
         Destroy(gameObject);
