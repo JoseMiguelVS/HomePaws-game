@@ -9,7 +9,7 @@ public class MenuBienvenida : MonoBehaviour
 {
     [Header("Escenas")]
     [Tooltip("Nombre de la escena del juego que se carga al pulsar Jugar.")]
-    [SerializeField] private string escenaJuego = "PrimerEscena";
+    [SerializeField] private string escenaJuego = "Level1";
 
     [Header("Configuración")]
     [Tooltip("Panel de configuración que se muestra al pulsar Configuracion. Puede quedar vacío.")]

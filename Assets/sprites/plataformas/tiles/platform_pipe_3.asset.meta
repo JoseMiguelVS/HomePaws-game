@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/sprites/plataformas/tiles/platform_pipe_3.asset.meta
 guid: 3a3cd8b5d96fa57489a66fb2b12b8bcd
-========
-guid: 68cc22a85236cd94bb060da96004081a
->>>>>>>> main:Assets/sprites/plataformas/tiles/platform_pipe_2.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

@@ -312,10 +312,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 959a44827a8958f489198aa50a9a8f9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OnTriggerFin
-  m_gameObject: {fileID: 700000011}
+  m_gameObject: {fileID: 0}
   m_nextSceneName: Level2
   m_delay: 2
-  mensajeFinal: Nivel completado. Volviendo al menu...
+  mensajeFinal: Rumbo al parque. El Nivel 2 espera.
 --- !u!1 &153529153
 GameObject:
   m_ObjectHideFlags: 0

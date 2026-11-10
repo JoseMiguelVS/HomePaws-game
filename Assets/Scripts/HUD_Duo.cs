@@ -37,6 +37,11 @@ public class HUD_Duo : MonoBehaviour
     private float mensajeHasta;
     private Color colorMensaje = new Color(0.96f, 0.94f, 0.88f, 1f);
 
+    private bool nivelCompletado;
+    private string textoCompletado;
+    private float completadoHasta;
+    private Color colorCompletado = new Color(0.45f, 0.95f, 0.55f, 1f);
+
     private void Awake()
     {
         Instancia = this;
@@ -61,8 +66,27 @@ public class HUD_Duo : MonoBehaviour
         Instancia.colorMensaje = color;
     }
 
+    /// <summary>Muestra el cartel unificado de "nivel completado".</summary>
+    public static void NivelCompletado(string subtitulo, float duracion = 3f)
+    {
+        if (Instancia == null)
+            return;
+
+        Instancia.nivelCompletado = true;
+        Instancia.textoCompletado = subtitulo;
+        Instancia.completadoHasta = Time.unscaledTime + Mathf.Max(1f, duracion);
+    }
+
     private void OnGUI()
     {
+        // El cartel de nivel completado se dibuja siempre, aunque el juego este pausado.
+        if (nivelCompletado)
+        {
+            InterfazJuego.Empezar();
+            DibujarNivelCompletado();
+            InterfazJuego.Terminar();
+        }
+
         // Con el juego pausado manda el menu de pausa.
         if (Time.timeScale <= 0f)
             return;
@@ -89,7 +113,7 @@ public class HUD_Duo : MonoBehaviour
 
         if (controlDuo == null)
         {
-            // Nivel de un solo personaje (por ejemplo PrimerEscena).
+            // Nivel de un solo personaje (por ejemplo Level1).
             habilidad = habilidadSinDuo;
         }
         else
@@ -314,6 +338,67 @@ public class HUD_Duo : MonoBehaviour
             mensaje,
             InterfazJuego.Estilo(21, new Color(colorMensaje.r, colorMensaje.g, colorMensaje.b, alpha), true, TextAnchor.MiddleCenter)
         );
+    }
+
+    private void DibujarNivelCompletado()
+    {
+        float restante = completadoHasta - Time.unscaledTime;
+
+        if (restante <= 0f)
+        {
+            nivelCompletado = false;
+            return;
+        }
+
+        float alpha = Mathf.Clamp01(restante / 0.4f);
+
+        InterfazJuego.Panel(
+            new Rect(0f, 0f, InterfazJuego.Ancho, InterfazJuego.Alto),
+            new Color(0f, 0f, 0f, 0.45f * alpha)
+        );
+
+        Rect panel = new Rect(
+            InterfazJuego.Ancho * 0.5f - 380f,
+            InterfazJuego.Alto * 0.5f - 110f,
+            760f,
+            220f
+        );
+
+        InterfazJuego.Panel(
+            new Rect(panel.x + 6f, panel.y + 8f, panel.width, panel.height),
+            new Color(0f, 0f, 0f, 0.35f * alpha)
+        );
+        InterfazJuego.PanelConBorde(
+            panel,
+            new Color(colorFondo.r, colorFondo.g, colorFondo.b, colorFondo.a * alpha),
+            new Color(colorCompletado.r, colorCompletado.g, colorCompletado.b, alpha),
+            3f
+        );
+
+        InterfazJuego.Etiqueta(
+            new Rect(panel.x, panel.y + 34f, panel.width, 60f),
+            "NIVEL COMPLETADO",
+            InterfazJuego.Estilo(
+                46,
+                new Color(colorCompletado.r, colorCompletado.g, colorCompletado.b, alpha),
+                true,
+                TextAnchor.MiddleCenter
+            )
+        );
+
+        if (!string.IsNullOrEmpty(textoCompletado))
+        {
+            InterfazJuego.Etiqueta(
+                new Rect(panel.x + 30f, panel.y + 104f, panel.width - 60f, 70f),
+                textoCompletado,
+                InterfazJuego.Estilo(
+                    22,
+                    new Color(colorTexto.r, colorTexto.g, colorTexto.b, alpha),
+                    false,
+                    TextAnchor.MiddleCenter
+                )
+            );
+        }
     }
 
     private void OnDestroy()

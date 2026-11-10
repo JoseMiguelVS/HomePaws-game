@@ -1,22 +1,23 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Zona de meta: al entrar el jugador muestra un mensaje de "nivel completado"
-// y pasa a la siguiente escena.
+// Zona de meta: al entrar el jugador muestra el cartel unificado de
+// "nivel completado", funde a negro y carga la siguiente escena.
 public class OnTriggerFin : MonoBehaviour
 {
     [Header("Nivel completado")]
-    [Tooltip("Panel u objeto que se muestra al completar el nivel.")]
+    [Tooltip("Panel u objeto que se muestra al completar el nivel. Puede quedar vacio.")]
     [SerializeField] private GameObject m_gameObject;
 
     [Tooltip("Nombre de la siguiente escena. Si se deja vacio, carga la siguiente en Build Settings.")]
     [SerializeField] private string m_nextSceneName = "";
 
-    [Tooltip("Segundos que se muestra el mensaje antes de cambiar de escena.")]
+    [Tooltip("Segundos que se muestra el cartel antes de fundir a negro.")]
     [SerializeField] private float m_delay = 2f;
 
-    [Tooltip("Aviso que muestra el HUD al llegar a la meta. Se puede dejar vacio.")]
-    [SerializeField] private string mensajeFinal = "Nivel completado. Volviendo al menu...";
+    [Tooltip("Subtitulo del cartel. Se puede dejar vacio.")]
+    [SerializeField] private string mensajeFinal = "Preparando el siguiente nivel...";
 
     private bool m_triggered;
 
@@ -38,18 +39,26 @@ public class OnTriggerFin : MonoBehaviour
         if (ControlDuo.Instancia != null)
             ControlDuo.Instancia.BloquearControl(true);
 
-        if (HUD_Duo.Instancia != null && !string.IsNullOrEmpty(mensajeFinal))
-            HUD_Duo.Mensaje(mensajeFinal, Mathf.Max(2f, m_delay), new Color(0.45f, 0.95f, 0.55f, 1f));
+        HUD_Duo.NivelCompletado(mensajeFinal, Mathf.Max(1.5f, m_delay));
 
         Debug.Log("Nivel completado.");
 
-        if (m_delay > 0f)
-            Invoke(nameof(IrAlSiguienteNivel), m_delay);
-        else
-            IrAlSiguienteNivel();
+        StartCoroutine(SecuenciaFinal());
     }
 
-    private void IrAlSiguienteNivel()
+    private IEnumerator SecuenciaFinal()
+    {
+        yield return new WaitForSecondsRealtime(Mathf.Max(0.5f, m_delay));
+
+        FundidoUI fundido = FundidoUI.Instancia;
+
+        if (fundido == null)
+            fundido = new GameObject("FundidoUI").AddComponent<FundidoUI>();
+
+        yield return fundido.Fundir(0.8f, CargarSiguiente, null);
+    }
+
+    private void CargarSiguiente()
     {
         if (!string.IsNullOrEmpty(m_nextSceneName))
         {

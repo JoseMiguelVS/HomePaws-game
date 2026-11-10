@@ -55,6 +55,44 @@ public class FundidoUI : MonoBehaviour
         alVolver?.Invoke();
     }
 
+    /// <summary>
+    /// Empieza en negro y aclara la pantalla. Util al arrancar una escena
+    /// cinematografica.
+    /// </summary>
+    public IEnumerator Aparecer(float duracion)
+    {
+        Ocupado = true;
+        alpha = 1f;
+
+        float tiempo = Mathf.Max(0.05f, duracion);
+
+        for (float t = 0f; t < tiempo; t += Time.unscaledDeltaTime)
+        {
+            alpha = 1f - Mathf.Clamp01(t / tiempo);
+            yield return null;
+        }
+
+        alpha = 0f;
+        Ocupado = false;
+    }
+
+    /// <summary>Oscurece la pantalla hasta negro y la deja asi.</summary>
+    public IEnumerator Desaparecer(float duracion)
+    {
+        Ocupado = true;
+
+        float tiempo = Mathf.Max(0.05f, duracion);
+
+        for (float t = 0f; t < tiempo; t += Time.unscaledDeltaTime)
+        {
+            alpha = Mathf.Clamp01(t / tiempo);
+            yield return null;
+        }
+
+        alpha = 1f;
+        Ocupado = false;
+    }
+
     private void OnGUI()
     {
         if (alpha <= 0f)
