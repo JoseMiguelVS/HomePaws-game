@@ -26,6 +26,16 @@ public class HUD_Duo : MonoBehaviour
     [Tooltip("Habilidad que muestra el HUD cuando la escena no tiene ControlDuo.")]
     [SerializeField] private string habilidadSinDuo = "Empuja objetos pesados";
 
+    [Header("Textos del nivel")]
+    [Tooltip("Objetivo que muestra el HUD antes de encontrar a Estrella.")]
+    [SerializeField] private string objetivoEncuentro = "Encuentra a Estrella en el alcantarillado.";
+
+    [Tooltip("Habilidad de Sol cuando el duo esta formado.")]
+    [SerializeField] private string habilidadSol = "Empuja cajas pesadas y mueve palancas";
+
+    [Tooltip("Habilidad de Estrella cuando el duo esta formado.")]
+    [SerializeField] private string habilidadEstrella = "Salto alto: alcanza la llave";
+
     [Header("Colores")]
     [SerializeField] private Color colorSol = new Color(1f, 0.68f, 0.22f, 1f);
     [SerializeField] private Color colorEstrella = new Color(0.4f, 0.85f, 1f, 1f);
@@ -118,13 +128,13 @@ public class HUD_Duo : MonoBehaviour
         }
         else
         {
-            habilidad = "Empuja cajas pesadas y mueve palancas";
+            habilidad = habilidadSol;
 
             if (controlDuo.NombreActivo == "Estrella")
             {
                 nombre = "ESTRELLA";
                 color = colorEstrella;
-                habilidad = "Salto alto: alcanza la llave";
+                habilidad = habilidadEstrella;
             }
 
             if (controlDuo.DuoActivo)
@@ -195,7 +205,7 @@ public class HUD_Duo : MonoBehaviour
         }
         else if (controlDuo != null && !controlDuo.DuoActivo)
         {
-            objetivo = "Encuentra a Estrella en el alcantarillado.";
+            objetivo = objetivoEncuentro;
         }
         else if (compuerta != null && compuerta.Abierta == false)
         {
