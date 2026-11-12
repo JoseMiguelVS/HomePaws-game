@@ -25,6 +25,15 @@ public class MenuPausa : MonoBehaviour
     [Header("Configuración de sonido")]
     [SerializeField] private Slider sliderVolumen;
 
+    [Header("Pantalla")]
+    [Tooltip("Boton que alterna entre pantalla completa y ventana.")]
+    [SerializeField] private Button botonPantalla;
+
+    [Tooltip("Texto del boton de pantalla, para mostrar el estado actual.")]
+    [SerializeField] private TMP_Text textoBotonPantalla;
+
+    private const string ClavePantallaCompleta = "pantalla_completa";
+
     [Header("Menú de bienvenida")]
     [Tooltip("Mostrar el menú al iniciar la partida (pantalla de bienvenida).")]
     [SerializeField] private bool mostrarMenuAlIniciar = true;
@@ -56,6 +65,13 @@ public class MenuPausa : MonoBehaviour
         get { return estaPausado; }
     }
 
+    private void Awake()
+    {
+        // Recuerda el modo de pantalla entre niveles y partidas.
+        if (PlayerPrefs.HasKey(ClavePantallaCompleta))
+            Screen.fullScreen = PlayerPrefs.GetInt(ClavePantallaCompleta) == 1;
+    }
+
     private void Update()
     {
         // Escape abre y cierra el menu mientras se juega. Asi el menu de pausa
@@ -80,6 +96,11 @@ public class MenuPausa : MonoBehaviour
             sliderVolumen.value = GestorAudio.Instancia.VolumenMusica;
             sliderVolumen.onValueChanged.AddListener(CambiarVolumen);
         }
+
+        if (botonPantalla != null)
+            botonPantalla.onClick.AddListener(AlternarPantallaCompleta);
+
+        ActualizarTextoPantalla();
 
         if (mostrarMenuAlIniciar)
         {
@@ -204,6 +225,26 @@ public class MenuPausa : MonoBehaviour
     public void CambiarVolumen(float volumen)
     {
         GestorAudio.AjustarVolumenGeneral(volumen);
+    }
+
+    // Alternar entre pantalla completa y ventana desde el panel de configuracion
+    public void AlternarPantallaCompleta()
+    {
+        bool completa = !Screen.fullScreen;
+
+        Screen.fullScreen = completa;
+        PlayerPrefs.SetInt(ClavePantallaCompleta, completa ? 1 : 0);
+        PlayerPrefs.Save();
+
+        ActualizarTextoPantalla();
+        GestorAudio.Sonar(Sonido.Boton, 0.7f);
+    }
+
+    // Mostrar en el boton el modo de pantalla actual
+    private void ActualizarTextoPantalla()
+    {
+        if (textoBotonPantalla != null)
+            textoBotonPantalla.text = Screen.fullScreen ? "Pantalla: Completa" : "Pantalla: Ventana";
     }
 
     // Reiniciar el nivel actual
