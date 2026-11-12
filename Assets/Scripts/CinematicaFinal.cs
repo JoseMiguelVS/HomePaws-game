@@ -3,11 +3,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Cinematica final: Sol y Estrella caminan por el barrio hasta su casa,
-/// la puerta se abre y el juego vuelve al menu principal.
+/// Cinemática final: Sol y Estrella caminan por el barrio hasta su casa,
+/// la puerta se abre y el juego vuelve al menú principal.
 ///
 /// Todo el texto se dibuja con OnGUI (igual que el HUD) y el fundido usa
-/// FundidoUI, asi la escena no necesita Canvas.
+/// FundidoUI, así la escena no necesita Canvas.
 /// </summary>
 [DisallowMultipleComponent]
 public class CinematicaFinal : MonoBehaviour
@@ -35,7 +35,7 @@ public class CinematicaFinal : MonoBehaviour
     [Tooltip("Altura (centro del sprite) a la que caminan los gatos.")]
     [SerializeField] private float ySuelo = 1.9f;
 
-    [Tooltip("Separacion entre los dos gatos.")]
+    [Tooltip("Separación entre los dos gatos.")]
     [SerializeField] private float separacion = 1.15f;
 
     [SerializeField] private float velocidad = 1.15f;
@@ -48,7 +48,7 @@ public class CinematicaFinal : MonoBehaviour
     [SerializeField] private float esperaAntesDeSalir = 2.6f;
 
     [Header("Datos ambientales")]
-    [Tooltip("Muestra el panel con datos reales del problema ambiental al terminar la cinematica.")]
+    [Tooltip("Muestra el panel con datos reales del problema ambiental al terminar la cinemática.")]
     [SerializeField] private bool mostrarDatosAmbientales = true;
 
     [SerializeField] private string tituloDatos = "EL PROBLEMA QUE NO SE VE";
@@ -63,7 +63,7 @@ public class CinematicaFinal : MonoBehaviour
     [SerializeField] private string fuentesDatos =
         "Fuentes: SEMARNAT, Diagn\u00f3stico B\u00e1sico para la Gesti\u00f3n Integral de los Residuos (2020); AMMVEPE.";
 
-    [Tooltip("Tiempo minimo que se queda el panel de datos en pantalla. Se puede saltar con ESPACIO.")]
+    [Tooltip("Tiempo mínimo que se queda el panel de datos en pantalla. Se puede saltar con ESPACIO.")]
     [SerializeField] private float esperaConDatos = 8f;
 
     [Header("Escena")]
@@ -242,8 +242,8 @@ public class CinematicaFinal : MonoBehaviour
     }
 
     /// <summary>
-    /// Panel con datos reales del problema ambiental. Aparece despues de la
-    /// llegada a casa y se puede saltar con ESPACIO como el resto de la cinematica.
+    /// Panel con datos reales del problema ambiental. Aparece después de la
+    /// llegada a casa y se puede saltar con ESPACIO como el resto de la cinemática.
     /// </summary>
     private void DibujarDatos(float alpha)
     {

@@ -1,9 +1,9 @@
 using UnityEngine;
 
 /// <summary>
-/// Cambia el fondo que viaja con la camara entre dos secciones del mismo
-/// nivel (alcantarillas y tejados) y ajusta el color de fondo de la camara.
-/// Lo llama CambioSeccion al cruzar de una seccion a otra.
+/// Cambia el fondo que viaja con la cámara entre dos secciones del mismo
+/// nivel (alcantarillas y tejados) y ajusta el color de fondo de la cámara.
+/// Lo llama CambioSección al cruzar de una sección a otra.
 /// </summary>
 [DisallowMultipleComponent]
 public class FondoCamara : MonoBehaviour
@@ -12,7 +12,7 @@ public class FondoCamara : MonoBehaviour
     [SerializeField] private SpriteRenderer fondo;
     [SerializeField] private Camera camara;
 
-    [Header("Sprites de cada seccion")]
+    [Header("Sprites de cada sección")]
     [SerializeField] private Sprite spriteAlcantarillas;
     [SerializeField] private Sprite spriteTejados;
 

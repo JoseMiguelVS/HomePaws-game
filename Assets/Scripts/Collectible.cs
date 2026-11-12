@@ -7,12 +7,12 @@ using UnityEngine.Events;
 ///
 /// Es opcional: la recogida de atun del nivel 1 la sigue haciendo
 /// PlayerController por etiqueta. Usa este componente para recogibles nuevos
-/// que no necesiten logica propia.
+/// que no necesiten lógica propia.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class Collectible : MonoBehaviour
 {
-    [Header("Deteccion")]
+    [Header("Detección")]
     [Tooltip("Etiqueta del objeto que puede recogerlo.")]
     [SerializeField] private string etiquetaJugador = "Player";
 
@@ -51,7 +51,7 @@ public class Collectible : MonoBehaviour
         Recoger();
     }
 
-    /// <summary>Recoge el objeto. Tambien se puede llamar desde otro script.</summary>
+    /// <summary>Recoge el objeto. También se puede llamar desde otro script.</summary>
     public void Recoger()
     {
         if (recogido)

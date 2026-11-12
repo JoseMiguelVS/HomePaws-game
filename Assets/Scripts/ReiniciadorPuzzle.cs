@@ -10,7 +10,7 @@ public class ReiniciadorPuzzle : MonoBehaviour
     [SerializeField] private PlacaPresion[] placas;
     [SerializeField] private Puerta[] puertas;
 
-    [Header("Disparo automatico")]
+    [Header("Disparo automático")]
     [Tooltip("Si se marca, al entrar el jugador en este objeto (con Collider2D trigger) se reinicia.")]
     [SerializeField] private bool reiniciarAlEntrarJugador = true;
 

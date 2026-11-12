@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Interruptor de piedra del parque. Se enciende cuando un personaje se sube
-/// encima y ya no se apaga: asi el jugador puede resolverlo en el orden que
+/// encima y ya no se apaga: así el jugador puede resolverlo en el orden que
 /// quiera. No conoce la reja; solo avisa al GestorParque, de modo que se puede
 /// reutilizar en cualquier nivel.
 ///
@@ -12,12 +12,12 @@ using UnityEngine;
 public class InterruptorParque : MonoBehaviour
 {
     [Header("Aspecto")]
-    [Tooltip("Sprite del interruptor. Si se deja vacio se busca en este objeto.")]
+    [Tooltip("Sprite del interruptor. Si se deja vacío se busca en este objeto.")]
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private Sprite spriteApagado;
     [SerializeField] private Sprite spriteEncendido;
 
-    [Header("Deteccion")]
+    [Header("Detección")]
     [Tooltip("Etiqueta que enciende el interruptor.")]
     [SerializeField] private string etiquetaJugador = "Player";
 
@@ -51,7 +51,7 @@ public class InterruptorParque : MonoBehaviour
             Encender();
     }
 
-    /// <summary>Enciende el interruptor. Tambien se puede llamar desde un boton.</summary>
+    /// <summary>Enciende el interruptor. También se puede llamar desde un botón.</summary>
     public void Encender()
     {
         if (Encendido)

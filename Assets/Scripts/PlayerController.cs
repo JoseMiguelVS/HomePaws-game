@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    [Header("Deteccion del suelo")]
+    [Header("Detección del suelo")]
     public Transform groundCheck;
     public float groundCheckRadius = 0.15f;
     public LayerMask groundLayer;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     public TMP_Text textAtun;
 
     [Header("Control")]
-    [Tooltip("Lo activa y desactiva ControlDuo. Si esta apagado, el personaje se queda quieto en Idle.")]
+    [Tooltip("Lo activa y desactiva ControlDuo. Si está apagado, el personaje se queda quieto en Idle.")]
     public bool controlActivo = true;
 
     /// <summary>Atun recogido en toda la partida (lo muestra el HUD).</summary>
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private int atun;
 
-    // Lo usa CompaneroSeguir para animar al companero mientras se mueve solo.
+    // Lo usa CompaneroSeguir para animar al compañero mientras se mueve solo.
     private float velocidadSeguimiento;
     private bool animacionSeguimiento;
 
@@ -64,13 +64,13 @@ public class PlayerController : MonoBehaviour
         if (rb == null || animator == null)
             return;
 
-        // Actualizar la deteccion del suelo antes de leer el salto.
+        // Actualizar la detección del suelo antes de leer el salto.
         CheckGrounded();
 
         if (!controlActivo)
         {
-            // El personaje inactivo del duo se queda quieto en Idle, salvo
-            // cuando CompaneroSeguir lo esta moviendo detras del lider.
+            // El personaje inactivo del dúo se queda quieto en Idle, salvo
+            // cuando CompaneroSeguir lo está moviendo detrás del líder.
             moveInput = 0f;
             jumpRequested = false;
             animacionSeguimiento = Mathf.Abs(velocidadSeguimiento) > 0.01f;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             jumpRequested = true;
 
-        // Girar el personaje y detectar cambios de direccion.
+        // Girar el personaje y detectar cambios de dirección.
         if (moveInput != 0)
         {
             if (lastDirection != 0 &&
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
         // Comprobar de nuevo el suelo antes de ejecutar el salto.
         CheckGrounded();
 
-        // Sonido al tomar contacto con el suelo tras una caida o un salto.
+        // Sonido al tomar contacto con el suelo tras una caída o un salto.
         if (isGrounded && !estabaEnSuelo)
             GestorAudio.Sonar(Sonido.Aterrizaje, 0.7f);
 
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity.y
         );
 
-        // Ejecutar y consumir una unica peticion de salto.
+        // Ejecutar y consumir una unica petición de salto.
         if (jumpRequested)
         {
             if (isGrounded)
@@ -169,8 +169,8 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
-    /// Lo usa CompaneroSeguir: indica si el personaje se esta desplazando
-    /// solo para que reproduzca la animacion de correr.
+    /// Lo usa CompaneroSeguir: indica si el personaje se está desplazando
+    /// solo para que reproduzca la animación de correr.
     /// </summary>
     public void EstablecerVelocidadSeguimiento(float velocidad)
     {
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
         int hash = Animator.StringToHash(animationName);
 
-        // Evitar reiniciar la misma animacion en cada fotograma.
+        // Evitar reiniciar la misma animación en cada fotograma.
         if (currentAnimationHash == hash)
             return;
 
@@ -239,7 +239,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Anade un Animation Event al final de Sol_turn
-    // que llame a este metodo.
+    // que llame a este método.
     public void FinishTurn()
     {
         isTurning = false;

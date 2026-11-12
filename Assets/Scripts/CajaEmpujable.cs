@@ -1,25 +1,25 @@
 using UnityEngine;
 
-// Caja empujable por fisicas 2D. Guarda su posicion inicial para poder
+// Caja empujable por físicas 2D. Guarda su posición inicial para poder
 // devolverla a su sitio cuando se falla el puzle (ver ReiniciadorPuzzle).
 //
 // Las cajas pesadas solo se mueven con un personaje lo bastante fuerte
 // (PerfilPersonaje.fuerzaEmpuje). Estrella se queda frenada al tocarlas y
-// Sol, que empuja mas, las desplaza. Asi el puzle indica quien hace falta.
+// Sol, que empuja más, las desplaza. Así el puzle indica quién hace falta.
 [RequireComponent(typeof(Rigidbody2D))]
 public class CajaEmpujable : MonoBehaviour
 {
-    [Header("Fisica (se aplica al Rigidbody2D)")]
+    [Header("Física (se aplica al Rigidbody2D)")]
     [Tooltip("Si se desmarca, respeta los valores que ya tengas en el Rigidbody2D.")]
     [SerializeField] private bool configurarFisica = true;
 
-    [Tooltip("Peso de la caja. Mas masa = cuesta mas empujarla.")]
+    [Tooltip("Peso de la caja. Más masa = cuesta más empujarla.")]
     [SerializeField] private float masa = 1f;
 
     [Tooltip("Gravedad. Se iguala a la del jugador (3) para que caiga al mismo ritmo.")]
     [SerializeField] private float escalaGravedad = 3f;
 
-    [Tooltip("Arrastre lineal: cuanto mas alto, antes se detiene al dejar de empujar.")]
+    [Tooltip("Arrastre lineal: cuánto más alto, antes se detiene al dejar de empujar.")]
     [SerializeField] private float arrastreLineal = 2f;
 
     [SerializeField] private float arrastreAngular = 4f;
@@ -118,7 +118,7 @@ public class CajaEmpujable : MonoBehaviour
             HUD_Duo.Mensaje("La caja es demasiado pesada. Necesitas a Sol.", 2.5f);
     }
 
-    // Devuelve la caja a su posicion y rotacion iniciales, sin velocidad.
+    // Devuelve la caja a su posición y rotación iniciales, sin velocidad.
     public void Reiniciar()
     {
         rb.linearVelocity = Vector2.zero;
@@ -127,7 +127,7 @@ public class CajaEmpujable : MonoBehaviour
         rb.rotation = rotacionInicial;
     }
 
-    // Para que la placa de presion pueda saber si esta encima una caja pesada.
+    // Para que la placa de presión pueda saber si está encima una caja pesada.
     public float Masa
     {
         get { return rb != null ? rb.mass : masa; }

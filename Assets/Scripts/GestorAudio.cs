@@ -20,10 +20,10 @@ public enum Sonido
 /// <summary>
 /// Gestor de audio global y persistente. Se crea solo la primera vez que
 /// arranca el juego (no hace falta colocarlo en ninguna escena) y sobrevive
-/// a los cambios de escena, de forma que la musica no se corta al pasar de
+/// a los cambios de escena, de forma que la música no se corta al pasar de
 /// nivel.
 ///
-/// Guarda los volumenes en PlayerPrefs, asi que se recuerdan entre partidas.
+/// Guarda los volúmenes en PlayerPrefs, así que se recuerdan entre partidas.
 /// Uso desde cualquier script:  GestorAudio.Sonar(Sonido.Salto);
 /// </summary>
 [DisallowMultipleComponent]
@@ -87,7 +87,7 @@ public class GestorAudio : MonoBehaviour
     private void Awake()
     {
         // Si ya habia otra instancia (por ejemplo al recargar el dominio en el
-        // editor), esta se descarta para no duplicar la musica.
+        // editor), esta se descarta para no duplicar la música.
         if (instancia != null && instancia != this)
         {
             Destroy(gameObject);
@@ -119,7 +119,7 @@ public class GestorAudio : MonoBehaviour
         ReproducirMusica();
     }
 
-    // ------------------------------------------------------------------ musica
+    // ------------------------------------------------------------------ música
 
     private void ReproducirMusica()
     {
@@ -195,9 +195,9 @@ public class GestorAudio : MonoBehaviour
         return clip;
     }
 
-    // -------------------------------------------------------------- volumenes
+    // -------------------------------------------------------------- volúmenes
 
-    /// <summary>Ajusta el volumen de la musica (0 a 1) y lo guarda.</summary>
+    /// <summary>Ajusta el volumen de la música (0 a 1) y lo guarda.</summary>
     public static void AjustarVolumenMusica(float volumen)
     {
         Instancia.FijarVolumenMusica(volumen);
@@ -232,8 +232,8 @@ public class GestorAudio : MonoBehaviour
     }
 
     /// <summary>
-    /// Volumen general 0 a 1: se aplica a musica y efectos a la vez.
-    /// Es lo que usa el deslizador del menu de pausa.
+    /// Volumen general 0 a 1: se aplica a música y efectos a la vez.
+    /// Es lo que usa el deslizador del menú de pausa.
     /// </summary>
     public static void AjustarVolumenGeneral(float volumen)
     {

@@ -2,11 +2,11 @@ using UnityEngine;
 
 /// <summary>
 /// Compuerta con varios candados. Cada candado se resuelve con un mecanismo
-/// distinto (placa de presion, palanca y llave) y la compuerta solo se abre
-/// cuando todos estan resueltos.
+/// distinto (placa de presión, palanca y llave) y la compuerta solo se abre
+/// cuando todos están resueltos.
 ///
 /// No necesita eventos: consulta el estado de los mecanismos cada fotograma,
-/// asi que se puede montar entera desde el Inspector.
+/// así que se puede montar entera desde el Inspector.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class Compuerta : MonoBehaviour

@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Mecanica del parque: cuenta los interruptores de piedra y, cuando estan
+/// Mecánica del parque: cuenta los interruptores de piedra y, cuando están
 /// todos encendidos, activa los objetos del camino de piedra y abre la reja si
-/// hay una. No sabe como se encienden ni donde estan: los InterruptorParque se
-/// registran solos, asi el mismo gestor sirve para cualquier nivel.
+/// hay una. No sabe como se encienden ni donde están: los InterruptorParque se
+/// registran solos, así el mismo gestor sirve para cualquier nivel.
 ///
 /// Colocarlo en un objeto "MecanicaParque" y arrastrar los interruptores y los
 /// objetos que aparecen al completarlos.
@@ -13,7 +13,7 @@ using UnityEngine;
 public class GestorParque : MonoBehaviour
 {
     [Header("Interruptores")]
-    [Tooltip("Interruptores que hay que encender. Si esta vacio se buscan en la escena.")]
+    [Tooltip("Interruptores que hay que encender. Si está vacío se buscan en la escena.")]
     [SerializeField] private List<InterruptorParque> interruptores = new List<InterruptorParque>();
 
     [Header("Recompensa")]
@@ -23,7 +23,7 @@ public class GestorParque : MonoBehaviour
     [Header("Reja (opcional)")]
     [Tooltip("Sprite de la reja que cambia al abrirse.")]
     [SerializeField] private SpriteRenderer reja;
-    [Tooltip("Collider solido que bloquea el paso mientras la reja esta cerrada.")]
+    [Tooltip("Collider sólido que bloquea el paso mientras la reja está cerrada.")]
     [SerializeField] private Collider2D rejaCollider;
     [SerializeField] private Sprite rejaCerrada;
     [SerializeField] private Sprite rejaAbierta;
@@ -32,7 +32,7 @@ public class GestorParque : MonoBehaviour
     [SerializeField] private string mensajeInicio =
         "Enciende los 3 interruptores de piedra para abrir el camino del parque.";
     [SerializeField] private string mensajeProgreso = "Interruptor encendido ({0}/{1}).";
-    [SerializeField] private string mensajeAbierta = "El camino de piedra aparecio. Ya puedes cruzar.";
+    [SerializeField] private string mensajeAbierta = "El camino de piedra apareció. Ya puedes cruzar.";
 
     public static GestorParque Instancia { get; private set; }
 
@@ -73,7 +73,7 @@ public class GestorParque : MonoBehaviour
         if (reja != null && rejaCerrada != null)
             reja.sprite = rejaCerrada;
 
-        // Si la escena se guardo con todo encendido, la recompensa ya esta puesta.
+        // Si la escena se guardó con todo encendido, la recompensa ya está puesta.
         if (Total > 0 && Encendidos >= Total)
             Abrir(false);
         else
@@ -88,7 +88,7 @@ public class GestorParque : MonoBehaviour
         HUD_Duo.Mensaje(mensajeInicio, 4f);
     }
 
-    /// <summary>Registra un interruptor creado o activado en tiempo de ejecucion.</summary>
+    /// <summary>Registra un interruptor creado o activado en tiempo de ejecución.</summary>
     public void Registrar(InterruptorParque interruptor)
     {
         if (interruptor != null && !interruptores.Contains(interruptor))

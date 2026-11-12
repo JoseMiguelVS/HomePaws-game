@@ -3,9 +3,9 @@ using UnityEngine;
 /// <summary>
 /// Cartel flotante que indica que personaje necesita un objeto del puzle
 /// (por ejemplo "SOL - EMPUJA" o "ESTRELLA - SALTO"). Se dibuja con OnGUI,
-/// asi no hace falta crear sprites ni tocar el Canvas.
+/// así no hace falta crear sprites ni tocar el Canvas.
 ///
-/// Colocarlo en un objeto vacio sobre el mecanismo. El texto se puede cambiar
+/// Colocarlo en un objeto vacío sobre el mecanismo. El texto se puede cambiar
 /// desde otro script con EstablecerTexto (lo hace Compuerta con sus candados).
 /// </summary>
 public class IndicadorFlotante : MonoBehaviour
@@ -14,21 +14,21 @@ public class IndicadorFlotante : MonoBehaviour
     [SerializeField] private string texto = "SOL - EMPUJA";
     [SerializeField] private Color color = new Color(1f, 0.68f, 0.22f, 1f);
 
-    [Header("Posicion")]
+    [Header("Posición")]
     [Tooltip("Altura sobre el objeto donde se dibuja el cartel.")]
     [SerializeField] private float altura = 1.4f;
 
-    [Tooltip("Movimiento suave de flotacion.")]
+    [Tooltip("Movimiento suave de flotación.")]
     [SerializeField] private float amplitudFlotacion = 0.07f;
     [SerializeField] private float velocidadFlotacion = 2.2f;
 
-    [Header("Tamano")]
+    [Header("Tamaño")]
     [SerializeField] private float ancho = 210f;
     [SerializeField] private float alto = 36f;
     [SerializeField] private int tamanoTexto = 18;
 
     [Header("Visibilidad")]
-    [Tooltip("Solo se dibuja si el jugador activo esta a esta distancia o menos.")]
+    [Tooltip("Solo se dibuja si el jugador activo está a esta distancia o menos.")]
     [SerializeField] private float distanciaMaxima = 18f;
 
     [SerializeField] private bool visible = true;
@@ -62,7 +62,7 @@ public class IndicadorFlotante : MonoBehaviour
         if (!visible || !mostrando)
             return;
 
-        // Con el juego pausado manda el menu de pausa.
+        // Con el juego pausado manda el menú de pausa.
         if (Time.timeScale <= 0f)
             return;
 
@@ -109,7 +109,7 @@ public class IndicadorFlotante : MonoBehaviour
         InterfazJuego.Panel(new Rect(cartel.x + 3f, cartel.y + 4f, cartel.width, cartel.height), new Color(0f, 0f, 0f, 0.30f));
         InterfazJuego.PanelConBorde(cartel, fondo, borde, 2f);
 
-        // Franja de color a la izquierda y linea que apunta al objeto.
+        // Franja de color a la izquierda y línea que apunta al objeto.
         InterfazJuego.Barra(new Rect(cartel.x + 2f, cartel.y + 2f, 6f, cartel.height - 4f), color);
         InterfazJuego.Panel(
             new Rect(cartel.x + cartel.width * 0.5f - 1f, cartel.y + cartel.height, 2f, 16f),

@@ -2,17 +2,17 @@ using UnityEngine;
 using UnityEngine.Events;
 
 // Punto de control (checkpoint). Cuando el jugador lo toca se convierte en el
-// lugar donde reaparece si se cae al vacio o si muere. Solo avisa al
-// GestorReaparicion y cambia de aspecto: asi es reutilizable en cualquier nivel.
+// lugar donde reaparece si se cae al vacío o si muere. Solo avisa al
+// GestorReaparición y cambia de aspecto: así es reutilizable en cualquier nivel.
 [RequireComponent(typeof(Collider2D))]
 public class Checkpoint : MonoBehaviour
 {
-    [Header("Deteccion")]
+    [Header("Detección")]
     [Tooltip("Etiqueta que activa el checkpoint.")]
     [SerializeField] private string etiquetaJugador = "Player";
 
-    [Header("Punto de reaparicion")]
-    [Tooltip("Donde aparece el jugador. Si se deja vacio se usa este objeto.")]
+    [Header("Punto de reaparición")]
+    [Tooltip("Donde aparece el jugador. Si se deja vacío se usa este objeto.")]
     [SerializeField] private Transform puntoReaparicion;
 
     [Header("Aspecto")]
@@ -30,7 +30,7 @@ public class Checkpoint : MonoBehaviour
 
     public bool Activado { get; private set; }
 
-    // Posicion exacta donde debe aparecer el jugador.
+    // Posición exacta donde debe aparecer el jugador.
     public Vector3 PuntoMundo
     {
         get { return puntoReaparicion != null ? puntoReaparicion.position : transform.position; }
@@ -62,7 +62,7 @@ public class Checkpoint : MonoBehaviour
         Activar();
     }
 
-    // Se puede llamar tambien desde un boton o desde otro script.
+    // Se puede llamar también desde un botón o desde otro script.
     public void Activar()
     {
         if (Activado)

@@ -5,7 +5,7 @@ using UnityEngine;
 /// aplica al PlayerController, al Rigidbody2D y al collider al empezar.
 ///
 /// Colocarlo en el mismo objeto que PlayerController. Sirve para que Sol sea
-/// mas pesado y empuje mas, y Estrella sea mas agil y salte mas sin duplicar
+/// más pesado y empuje más, y Estrella sea más ágil y salte más sin duplicar
 /// el script de movimiento.
 /// </summary>
 [DisallowMultipleComponent]
@@ -19,10 +19,10 @@ public class PerfilPersonaje : MonoBehaviour
     [Tooltip("Velocidad maxima al correr.")]
     [SerializeField] private float velocidad = 5f;
 
-    [Tooltip("Fuerza del salto. A mas valor, mas alto llega.")]
+    [Tooltip("Fuerza del salto. A más valor, más alto llega.")]
     [SerializeField] private float salto = 10f;
 
-    [Header("Fisica")]
+    [Header("Física")]
     [Tooltip("Masa del personaje. Mas masa = empuja mejor las cajas.")]
     [SerializeField] private float masa = 3f;
 
@@ -33,7 +33,7 @@ public class PerfilPersonaje : MonoBehaviour
     [SerializeField] private Vector2 offsetCollider = new Vector2(-0.026910245f, -0.095409095f);
 
     [Header("Habilidades")]
-    [Tooltip("Fuerza con la que empuja las cajas. La caja pesada pide 2 o mas.")]
+    [Tooltip("Fuerza con la que empuja las cajas. La caja pesada pide 2 o más.")]
     [SerializeField] private float fuerzaEmpuje = 3f;
 
     public string Nombre { get { return nombre; } }
@@ -67,7 +67,7 @@ public class PerfilPersonaje : MonoBehaviour
         }
 
         // El collider es opcional: si se deja en cero se respeta el que ya
-        // tenga el personaje (Estrella usa uno mas pequeno que Sol).
+        // tenga el personaje (Estrella usa uno más pequeño que Sol).
         if (tamanoCollider != Vector2.zero)
         {
             BoxCollider2D colisionador = GetComponent<BoxCollider2D>();

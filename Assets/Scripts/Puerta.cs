@@ -1,14 +1,14 @@
 using UnityEngine;
 
-// Puerta: desplaza su parte movil entre una posicion cerrada y otra abierta.
-// No decide cuando abrir: eso lo hacen la placa, un boton o una condicion de puzle.
+// Puerta: desplaza su parte móvil entre una posición cerrada y otra abierta.
+// No decide cuándo abrir: eso lo hacen la placa, un botón o una condición de puzle.
 public class Puerta : MonoBehaviour
 {
     [Header("Partes")]
-    [Tooltip("Transform que se mueve. Si se deja vacio, se usa este mismo objeto.")]
+    [Tooltip("Transform que se mueve. Si se deja vacío, se usa este mismo objeto.")]
     [SerializeField] private Transform parteMovil;
 
-    [Tooltip("Desplazamiento local cuando la puerta esta abierta.")]
+    [Tooltip("Desplazamiento local cuando la puerta está abierta.")]
     [SerializeField] private Vector3 desplazamientoAbierta = new Vector3(0f, 3f, 0f);
 
     [Tooltip("Velocidad de apertura/cierre.")]

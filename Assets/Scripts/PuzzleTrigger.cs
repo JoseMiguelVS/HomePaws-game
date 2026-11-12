@@ -1,14 +1,14 @@
 using UnityEngine;
 
-// Seccion de puzles / obstaculos: al entrar el jugador activa un grupo de
-// obstaculos y, si se quiere, los desactiva al salir.
+// Sección de puzles / obstáculos: al entrar el jugador activa un grupo de
+// obstáculos y, si se quiere, los desactiva al salir.
 public class PuzzleTrigger : MonoBehaviour
 {
-    [Header("Seccion de puzle / obstaculos")]
-    [Tooltip("Grupo de obstaculos que se activa al entrar el jugador.")]
+    [Header("Sección de puzle / obstáculos")]
+    [Tooltip("Grupo de obstáculos que se activa al entrar el jugador.")]
     [SerializeField] private GameObject m_obstaculos;
 
-    [Tooltip("Si se marca, los obstaculos se desactivan al salir el jugador.")]
+    [Tooltip("Si se marca, los obstáculos se desactivan al salir el jugador.")]
     [SerializeField] private bool m_desactivarAlSalir = true;
 
     private bool avisoMostrado;

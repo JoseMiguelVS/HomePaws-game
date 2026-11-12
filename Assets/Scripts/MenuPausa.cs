@@ -26,10 +26,10 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private Slider sliderVolumen;
 
     [Header("Pantalla")]
-    [Tooltip("Boton que alterna entre pantalla completa y ventana.")]
+    [Tooltip("Botón que alterna entre pantalla completa y ventana.")]
     [SerializeField] private Button botonPantalla;
 
-    [Tooltip("Texto del boton de pantalla, para mostrar el estado actual.")]
+    [Tooltip("Texto del botón de pantalla, para mostrar el estado actual.")]
     [SerializeField] private TMP_Text textoBotonPantalla;
 
     private const string ClavePantallaCompleta = "pantalla_completa";
@@ -45,7 +45,7 @@ public class MenuPausa : MonoBehaviour
     [SerializeField] private string textoBotonJugar = "Iniciar juego";
 
     [Tooltip("Título que se muestra al pausar la partida.")]
-    [SerializeField] private string tituloPausa = "Menu de Pausa";
+    [SerializeField] private string tituloPausa = "Menú de Pausa";
 
     [Tooltip("Texto del botón que continúa la partida.")]
     [SerializeField] private string textoBotonContinuar = "Continuar";
@@ -74,8 +74,8 @@ public class MenuPausa : MonoBehaviour
 
     private void Update()
     {
-        // Escape abre y cierra el menu mientras se juega. Asi el menu de pausa
-        // funciona en cualquier nivel, aunque no tenga boton en pantalla.
+        // Escape abre y cierra el menú mientras se juega. Así el menú de pausa
+        // funciona en cualquier nivel, aunque no tenga botón en pantalla.
         if (!Input.GetKeyDown(KeyCode.Escape))
             return;
 
@@ -157,7 +157,7 @@ public class MenuPausa : MonoBehaviour
         OcultarMenu();
     }
 
-    // Cierra el menu sin reproducir sonido (arranque del nivel).
+    // Cierra el menú sin reproducir sonido (arranque del nivel).
     private void OcultarMenu()
     {
         estaPausado = false;
@@ -227,7 +227,7 @@ public class MenuPausa : MonoBehaviour
         GestorAudio.AjustarVolumenGeneral(volumen);
     }
 
-    // Alternar entre pantalla completa y ventana desde el panel de configuracion
+    // Alternar entre pantalla completa y ventana desde el panel de configuración
     public void AlternarPantallaCompleta()
     {
         bool completa = !Screen.fullScreen;
@@ -240,7 +240,7 @@ public class MenuPausa : MonoBehaviour
         GestorAudio.Sonar(Sonido.Boton, 0.7f);
     }
 
-    // Mostrar en el boton el modo de pantalla actual
+    // Mostrar en el botón el modo de pantalla actual
     private void ActualizarTextoPantalla()
     {
         if (textoBotonPantalla != null)

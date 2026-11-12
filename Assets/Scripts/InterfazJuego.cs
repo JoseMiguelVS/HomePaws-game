@@ -3,8 +3,8 @@ using UnityEngine;
 
 /// <summary>
 /// Utilidades de dibujo compartidas por el HUD, el dialogo y los indicadores.
-/// Todo se dibuja con OnGUI en un espacio de 1920x1080, asi no hace falta
-/// tocar el Canvas ni los menus que ya existen.
+/// Todo se dibuja con OnGUI en un espacio de 1920x1080, así no hace falta
+/// tocar el Canvas ni los menús que ya existen.
 /// </summary>
 public static class InterfazJuego
 {
@@ -96,7 +96,7 @@ public static class InterfazJuego
         );
     }
 
-    /// <summary>Estilo de texto reutilizable (se cachea por tamano, color y anclaje).</summary>
+    /// <summary>Estilo de texto reutilizable (se cachea por tamaño, color y anclaje).</summary>
     public static GUIStyle Estilo(int tamano, Color color, bool negrita = false, TextAnchor anclaje = TextAnchor.UpperLeft)
     {
         string clave = tamano + "|" + color + "|" + negrita + "|" + anclaje;

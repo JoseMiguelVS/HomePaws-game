@@ -1,11 +1,11 @@
 using UnityEngine;
 
 /// <summary>
-/// HUD del duo dibujado con OnGUI (sin Canvas): personaje activo, habilidad,
-/// objetivo, atun, avisos, boton de pausa y el aviso de tecla E junto a la
+/// HUD del dúo dibujado con OnGUI (sin Canvas): personaje activo, habilidad,
+/// objetivo, atun, avisos, botón de pausa y el aviso de tecla E junto a la
 /// palanca.
 ///
-/// Colocarlo en un objeto vacio "HUD_Duo" y arrastrar ControlDuo, Compuerta,
+/// Colocarlo en un objeto vacío "HUD_Duo" y arrastrar ControlDuo, Compuerta,
 /// Palanca y MenuPausa en el Inspector.
 /// </summary>
 [DisallowMultipleComponent]
@@ -30,10 +30,10 @@ public class HUD_Duo : MonoBehaviour
     [Tooltip("Objetivo que muestra el HUD antes de encontrar a Estrella.")]
     [SerializeField] private string objetivoEncuentro = "Encuentra a Estrella en el alcantarillado.";
 
-    [Tooltip("Habilidad de Sol cuando el duo esta formado.")]
+    [Tooltip("Habilidad de Sol cuando el dúo está formado.")]
     [SerializeField] private string habilidadSol = "Empuja cajas pesadas y mueve palancas";
 
-    [Tooltip("Habilidad de Estrella cuando el duo esta formado.")]
+    [Tooltip("Habilidad de Estrella cuando el dúo está formado.")]
     [SerializeField] private string habilidadEstrella = "Salto alto: alcanza la llave";
 
     [Header("Colores")]
@@ -89,7 +89,7 @@ public class HUD_Duo : MonoBehaviour
 
     private void OnGUI()
     {
-        // El cartel de nivel completado se dibuja siempre, aunque el juego este pausado.
+        // El cartel de nivel completado se dibuja siempre, aunque el juego esté pausado.
         if (nivelCompletado)
         {
             InterfazJuego.Empezar();
@@ -97,7 +97,7 @@ public class HUD_Duo : MonoBehaviour
             InterfazJuego.Terminar();
         }
 
-        // Con el juego pausado manda el menu de pausa.
+        // Con el juego pausado manda el menú de pausa.
         if (Time.timeScale <= 0f)
             return;
 
@@ -145,7 +145,7 @@ public class HUD_Duo : MonoBehaviour
                     companero += " (esperando)";
             }
             else
-                habilidad = "Busca a Estrella para formar el duo";
+                habilidad = "Busca a Estrella para formar el dúo";
         }
 
         Rect panel = new Rect(26f, 26f, 360f, 132f);
@@ -243,7 +243,7 @@ public class HUD_Duo : MonoBehaviour
 
         InterfazJuego.Etiqueta(
             new Rect(panel.x + 16f, panel.y, 90f, panel.height),
-            "ATUN",
+            "ATÚN",
             InterfazJuego.Estilo(18, colorTextoSuave, true, TextAnchor.MiddleLeft)
         );
 
@@ -271,7 +271,7 @@ public class HUD_Duo : MonoBehaviour
             InterfazJuego.Estilo(30, colorTexto, true, TextAnchor.MiddleCenter)
         );
 
-        // La etiqueta no captura clics: el boton invisible si.
+        // La etiqueta no captura clics: el botón invisible si.
         if (GUI.Button(boton, GUIContent.none, GUIStyle.none))
         {
             if (menuPausa != null)

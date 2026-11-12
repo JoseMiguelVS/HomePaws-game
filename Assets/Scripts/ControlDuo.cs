@@ -1,12 +1,12 @@
 using UnityEngine;
 
 /// <summary>
-/// Controla el duo Sol + Estrella. Solo un personaje recibe las entradas en
+/// Controla el dúo Sol + Estrella. Solo un personaje recibe las entradas en
 /// cada momento (TAB o 1/2 para cambiar); el otro se queda quieto en Idle.
-/// Tambien mueve la camara, bloquea el control durante los dialogos y avisa
-/// al GestorReaparicion de quien es el jugador activo.
+/// También mueve la cámara, bloquea el control durante los dialogos y avisa
+/// al GestorReaparición de quién es el jugador activo.
 ///
-/// Colocarlo en un objeto vacio de la escena (por ejemplo "ControlDuo") y
+/// Colocarlo en un objeto vacío de la escena (por ejemplo "ControlDuo") y
 /// arrastrar los dos PlayerController en el Inspector.
 /// </summary>
 [DisallowMultipleComponent]
@@ -31,19 +31,19 @@ public class ControlDuo : MonoBehaviour
     [Tooltip("Empezar la escena con Estrella ya en el equipo (sin el encuentro).")]
     [SerializeField] private bool empezarConDuo = false;
 
-    [Tooltip("Fuera de los puzles el companero inactivo sigue al personaje activo.")]
+    [Tooltip("Fuera de los puzles el compañero inactivo sigue al personaje activo.")]
     [SerializeField] private bool companeroSigue = false;
 
     /// <summary>True cuando Estrella ya se ha unido al equipo.</summary>
     public bool DuoActivo { get; private set; }
 
-    /// <summary>True mientras el jugador esta dentro de una zona de puzle.</summary>
+    /// <summary>True mientras el jugador está dentro de una zona de puzle.</summary>
     public bool EnPuzzle { get; private set; }
 
     /// <summary>Nombre del puzle activo (lo pone ZonaPuzzle).</summary>
     public string NombrePuzzle { get; private set; }
 
-    /// <summary>True mientras un dialogo o una cinematica bloquea el control.</summary>
+    /// <summary>True mientras un dialogo o una cinemática bloquea el control.</summary>
     public bool ControlBloqueado { get; private set; }
 
     public PlayerController Activo { get; private set; }
@@ -81,7 +81,7 @@ public class ControlDuo : MonoBehaviour
     {
         Instancia = this;
 
-        // Nivel 3: el duo ya empieza junto, sin conversacion de encuentro.
+        // Nivel 3: el dúo ya empieza junto, sin conversación de encuentro.
         if (empezarConDuo)
         {
             DuoActivo = true;
@@ -221,7 +221,7 @@ public class ControlDuo : MonoBehaviour
     }
 
     /// <summary>
-    /// Avisa de que el jugador activo ha entrado en un puzle: el companero
+    /// Avisa de que el jugador activo ha entrado en un puzle: el compañero
     /// deja de seguir y se queda esperando. Lo llama ZonaPuzzle.
     /// </summary>
     public void EntrarPuzzle(string nombre)
@@ -236,7 +236,7 @@ public class ControlDuo : MonoBehaviour
     }
 
     /// <summary>
-    /// Sale de la zona de puzle. Si el companero se quedo lejos, se reunen
+    /// Sale de la zona de puzle. Si el compañero se quedó lejos, se reúnen
     /// junto al jugador activo y se vuelve a activar el seguimiento.
     /// </summary>
     public void SalirPuzzle()
@@ -251,7 +251,7 @@ public class ControlDuo : MonoBehaviour
         ActualizarSeguimiento();
     }
 
-    /// <summary>Coloca la camara encima del personaje activo sin suavizado.</summary>
+    /// <summary>Coloca la cámara encima del personaje activo sin suavizado.</summary>
     public void CentrarCamara()
     {
         if (camara == null || Activo == null)
@@ -299,7 +299,7 @@ public class ControlDuo : MonoBehaviour
         ActualizarSeguimiento();
     }
 
-    // Solo el companero inactivo sigue, y solo fuera de los puzles.
+    // Solo el compañero inactivo sigue, y solo fuera de los puzles.
     private void ActualizarSeguimiento()
     {
         bool seguir = companeroSigue

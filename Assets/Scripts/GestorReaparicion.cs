@@ -2,41 +2,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-// Guarda el ultimo checkpoint activado y devuelve al jugador ahi cuando se cae
-// al vacio o cuando otro script llama a Reaparecer(). Tambien puede devolver el
+// Guarda el último checkpoint activado y devuelve al jugador ahí cuando se cae
+// al vacío o cuando otro script llama a Reaparecer(). También puede devolver el
 // puzle a su estado inicial para que el jugador no quede atrapado.
 //
-// Colocar este script en un objeto vacio de la escena (por ejemplo "GestorReaparicion").
+// Colocar este script en un objeto vacío de la escena (por ejemplo "GestorReaparición").
 public class GestorReaparicion : MonoBehaviour
 {
-    // Acceso rapido desde los checkpoints y desde otros scripts.
+    // Acceso rápido desde los checkpoints y desde otros scripts.
     public static GestorReaparicion Instancia { get; private set; }
 
     [Header("Jugador")]
-    [Tooltip("Si se deja vacio se busca por etiqueta al empezar.")]
+    [Tooltip("Si se deja vacío se busca por etiqueta al empezar.")]
     [SerializeField] private Transform jugador;
 
-    [Tooltip("Segundo personaje del duo. Se recoloca junto al primero al reaparecer.")]
+    [Tooltip("Segundo personaje del dúo. Se recoloca junto al primero al reaparecer.")]
     [SerializeField] private Transform jugadorSecundario;
 
     [SerializeField] private string etiquetaJugador = "Player";
 
-    [Tooltip("Separacion horizontal entre los dos personajes al reaparecer.")]
+    [Tooltip("Separación horizontal entre los dos personajes al reaparecer.")]
     [SerializeField] private float separacionDuo = 1.2f;
 
     [Header("Punto de partida")]
     [Tooltip("Donde reaparece el jugador mientras no haya tocado ningun checkpoint.")]
     [SerializeField] private Transform puntoInicial;
 
-    [Header("Caida al vacio")]
+    [Header("Caída al vacío")]
     [SerializeField] private bool reaparecerAlCaer = true;
     [Tooltip("Si el jugador baja de esta altura, reaparece.")]
     [SerializeField] private float limiteCaidaY = -30f;
 
-    [Header("Reaparicion")]
+    [Header("Reaparición")]
     [Tooltip("Desplazamiento respecto al checkpoint (para no aparecer dentro del suelo).")]
     [SerializeField] private Vector2 desplazamiento = new Vector2(0f, 0.6f);
-    [Tooltip("Tiempo minimo entre dos reapariciones seguidas.")]
+    [Tooltip("Tiempo mínimo entre dos reapariciones seguidas.")]
     [SerializeField] private float esperaEntreReapariciones = 0.5f;
 
     [Header("Puzzle (opcional)")]
@@ -128,15 +128,15 @@ public class GestorReaparicion : MonoBehaviour
     }
 
     /// <summary>
-    /// Cambia el punto de reaparicion sin tocar los checkpoints. Lo usa
-    /// CambioSeccion al pasar de las alcantarillas a los tejados.
+    /// Cambia el punto de reaparición sin tocar los checkpoints. Lo usa
+    /// CambioSección al pasar de las alcantarillas a los tejados.
     /// </summary>
     public void EstablecerPuntoActual(Vector3 punto)
     {
         puntoActual = punto;
     }
 
-    // Coloca al jugador en el ultimo punto seguro y avisa a quien escuche.
+    // Coloca al jugador en el último punto seguro y avisa a quién escuche.
     public void Reaparecer()
     {
         if (Time.time < proximaReaparicion)
@@ -173,7 +173,7 @@ public class GestorReaparicion : MonoBehaviour
     }
 
     /// <summary>
-    /// Indica quien es el jugador activo y quien el companero. Lo llama
+    /// Indica quién es el jugador activo y quién el compañero. Lo llama
     /// ControlDuo cada vez que se cambia de personaje.
     /// </summary>
     public void ConfigurarJugadores(Transform principal, Transform secundario)

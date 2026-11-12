@@ -7,16 +7,16 @@ using UnityEngine.SceneManagement;
 public class OnTriggerFin : MonoBehaviour
 {
     [Header("Nivel completado")]
-    [Tooltip("Panel u objeto que se muestra al completar el nivel. Puede quedar vacio.")]
+    [Tooltip("Panel u objeto que se muestra al completar el nivel. Puede quedar vacío.")]
     [SerializeField] private GameObject m_gameObject;
 
-    [Tooltip("Nombre de la siguiente escena. Si se deja vacio, carga la siguiente en Build Settings.")]
+    [Tooltip("Nombre de la siguiente escena. Si se deja vacío, carga la siguiente en Build Settings.")]
     [SerializeField] private string m_nextSceneName = "";
 
     [Tooltip("Segundos que se muestra el cartel antes de fundir a negro.")]
     [SerializeField] private float m_delay = 2f;
 
-    [Tooltip("Subtitulo del cartel. Se puede dejar vacio.")]
+    [Tooltip("Subtítulo del cartel. Se puede dejar vacío.")]
     [SerializeField] private string mensajeFinal = "Preparando el siguiente nivel...";
 
     private bool m_triggered;

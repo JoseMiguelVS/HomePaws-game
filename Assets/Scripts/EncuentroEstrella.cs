@@ -3,34 +3,34 @@ using UnityEngine;
 
 /// <summary>
 /// Encuentro con Estrella. Cuando el personaje controlado entra en la zona,
-/// bloquea el control, muestra una conversacion corta y, al terminar, activa
-/// el duo (ControlDuo.ActivarDuo).
+/// bloquea el control, muestra una conversación corta y, al terminar, activa
+/// el dúo (ControlDuo.ActivarDuo).
 ///
-/// Colocarlo en un objeto vacio con un BoxCollider2D marcado como Trigger que
+/// Colocarlo en un objeto vacío con un BoxCollider2D marcado como Trigger que
 /// cubra la zona donde se encuentran los dos personajes.
 /// </summary>
 public class EncuentroEstrella : MonoBehaviour
 {
     [Header("Referencias")]
-    [Tooltip("Control del duo. Si se deja vacio se usa ControlDuo.Instancia.")]
+    [Tooltip("Control del dúo. Si se deja vacío se usa ControlDuo.Instancia.")]
     [SerializeField] private ControlDuo controlDuo;
 
-    [Header("Conversacion")]
+    [Header("Conversación")]
     [Tooltip("Nombre del personaje que dice cada linea.")]
     [SerializeField] private string[] hablantes = { "Sol", "Estrella", "Sol", "Estrella" };
 
     [TextArea(2, 4)]
-    [Tooltip("Lineas de la conversacion, en el mismo orden que los hablantes.")]
+    [Tooltip("Líneas de la conversación, en el mismo orden que los hablantes.")]
     [SerializeField] private string[] lineas =
     {
-        "Estrella, te encontre. \u00bfEstas bien?",
+        "Estrella, te encontré. \u00bfEstás bien?",
         "\u00a1Sol! Pensaba que no llegabas. Esta compuerta tiene tres candados.",
         "Yo puedo empujar la caja pesada y mover la palanca.",
         "Y yo puedo saltar hasta la llave. \u00a1Vamos juntos!"
     };
 
-    [Header("Aparicion (opcional)")]
-    [Tooltip("Personaje que aparece al empezar el encuentro. Si se deja vacio, Estrella ya esta en la escena.")]
+    [Header("Aparición (opcional)")]
+    [Tooltip("Personaje que aparece al empezar el encuentro. Si se deja vacío, Estrella ya está en la escena.")]
     [SerializeField] private GameObject estrella;
 
     [Tooltip("Colocar a Estrella junto al jugador que entra en la zona.")]
@@ -39,7 +39,7 @@ public class EncuentroEstrella : MonoBehaviour
     [Tooltip("Desplazamiento respecto al jugador al aparecer.")]
     [SerializeField] private Vector3 desplazamientoAparicion = new Vector3(1.5f, 0.15f, 0f);
 
-    [Tooltip("Sonido del encuentro (por ejemplo, un maullido). Si se deja vacio se usa el AudioSource del objeto.")]
+    [Tooltip("Sonido del encuentro (por ejemplo, un maullido). Si se deja vacío se usa el AudioSource del objeto.")]
     [SerializeField] private AudioSource sonidoEncuentro;
 
     [Header("Ajustes")]
@@ -71,7 +71,7 @@ public class EncuentroEstrella : MonoBehaviour
     }
 
     // En el Nivel 2 Estrella empieza desactivada: se coloca junto al jugador
-    // y se activa justo antes de la conversacion.
+    // y se activa justo antes de la conversación.
     private void AparecerEstrella(Transform jugador)
     {
         if (estrella == null)

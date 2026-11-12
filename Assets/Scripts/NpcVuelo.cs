@@ -2,8 +2,8 @@ using UnityEngine;
 
 /// <summary>
 /// Movimiento de patrulla para un NPC volador. Va y viene en horizontal
-/// alrededor de su posicion inicial, con un balanceo vertical suave y una
-/// pausa corta en los extremos. No usa fisica: mueve el transform.
+/// alrededor de su posición inicial, con un balanceo vertical suave y una
+/// pausa corta en los extremos. No usa física: mueve el transform.
 ///
 /// Colocarlo en el objeto raiz del NPC (el que tiene el sprite como hijo).
 /// </summary>
@@ -11,7 +11,7 @@ using UnityEngine;
 public class NpcVuelo : MonoBehaviour
 {
     [Header("Patrulla horizontal")]
-    [Tooltip("Distancia a cada lado de la posicion inicial.")]
+    [Tooltip("Distancia a cada lado de la posición inicial.")]
     [SerializeField] private float distancia = 18f;
 
     [SerializeField] private float velocidad = 2.2f;
@@ -20,7 +20,7 @@ public class NpcVuelo : MonoBehaviour
     [SerializeField] private float pausaEnExtremos = 0.7f;
 
     [Header("Aleteo")]
-    [Tooltip("Cuanto sube y baja respecto a su altura base.")]
+    [Tooltip("Cuánto sube y baja respecto a su altura base.")]
     [SerializeField] private float amplitudVertical = 0.55f;
 
     [SerializeField] private float frecuenciaVertical = 1.7f;

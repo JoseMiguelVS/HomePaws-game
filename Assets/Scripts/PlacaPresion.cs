@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-// Placa de presion: detecta al jugador y/o a las cajas que se apoyan encima.
-// No sabe nada de puertas: solo avisa mediante eventos (asi es reutilizable).
+// Placa de presión: detecta al jugador y/o a las cajas que se apoyan encima.
+// No sabe nada de puertas: solo avisa mediante eventos (así es reutilizable).
 //
 // Con "masaMinima" solo cuenta el peso de verdad: la caja pesada de Sol la
 // pulsa, pero un personaje ligero (Estrella) no. El cambio de color/sprite
-// avisa de que esta pulsada.
+// avisa de que está pulsada.
 [RequireComponent(typeof(Collider2D))]
 public class PlacaPresion : MonoBehaviour
 {
-    [Header("Deteccion")]
+    [Header("Detección")]
     [Tooltip("Etiquetas que cuentan como peso valido (jugador, cajas...).")]
     [SerializeField] private string[] etiquetasValidas = { "Player", "Caja" };
 
@@ -25,13 +25,13 @@ public class PlacaPresion : MonoBehaviour
     [SerializeField] private float masaMinima = 0f;
 
     [Header("Aspecto (opcional)")]
-    [Tooltip("Sprite de la placa. Si se deja vacio se busca en este objeto.")]
+    [Tooltip("Sprite de la placa. Si se deja vacío se busca en este objeto.")]
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Sprite spriteArriba;
     [SerializeField] private Sprite spriteAbajo;
 
-    [Tooltip("Color cuando esta pulsada (si no se usan sprites).")]
+    [Tooltip("Color cuando está pulsada (si no se usan sprites).")]
     [SerializeField] private Color colorPulsada = new Color(0.45f, 0.95f, 0.5f, 1f);
 
     [Header("Eventos")]
@@ -43,7 +43,7 @@ public class PlacaPresion : MonoBehaviour
     private int objetosEncima;
     private Color colorOriginal = Color.white;
 
-    // Al anadir el componente, deja el collider como trigger.
+    // Al añadir el componente, deja el collider como trigger.
     private void Reset()
     {
         Collider2D col = GetComponent<Collider2D>();

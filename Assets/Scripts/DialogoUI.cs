@@ -8,7 +8,7 @@ using UnityEngine;
 ///
 ///   DialogoUI.Instancia.Mostrar(hablantes, textos, AlTerminar);
 ///
-/// Avanza con E, Espacio, Enter o clic. Mientras esta activa, ControlDuo
+/// Avanza con E, Espacio, Enter o clic. Mientras está activa, ControlDuo
 /// bloquea el movimiento de los personajes.
 /// </summary>
 [DisallowMultipleComponent]
@@ -61,7 +61,7 @@ public class DialogoUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Muestra una conversacion. Los dos arrays deben tener el mismo tamano.
+    /// Muestra una conversación. Los dos arrays deben tener el mismo tamaño.
     /// Al terminar se llama a alFinal (opcional).
     /// </summary>
     public void Mostrar(string[] nuevosHablantes, string[] nuevosTextos, Action alFinal = null)
@@ -93,7 +93,7 @@ public class DialogoUI : MonoBehaviour
             Terminar();
     }
 
-    /// <summary>Pasa a la siguiente linea (o completa la que se esta escribiendo).</summary>
+    /// <summary>Pasa a la siguiente línea (o completa la que se está escribiendo).</summary>
     public void Siguiente()
     {
         if (!Activo)

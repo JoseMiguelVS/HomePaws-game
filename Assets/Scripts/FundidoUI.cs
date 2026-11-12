@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Fundido a negro a pantalla completa para los cambios de seccion.
+/// Fundido a negro a pantalla completa para los cambios de sección.
 /// Se dibuja con OnGUI, igual que el resto de la interfaz, para no depender
 /// del Canvas de la escena.
 ///
@@ -26,7 +26,7 @@ public class FundidoUI : MonoBehaviour
 
     /// <summary>
     /// Oscurece la pantalla, ejecuta 'alNegro' y vuelve a aclararla.
-    /// 'duracion' es la duracion total aproximada del fundido.
+    /// 'duración' es la duración total aproximada del fundido.
     /// </summary>
     public IEnumerator Fundir(float duracion, Action alNegro, Action alVolver)
     {
@@ -76,7 +76,7 @@ public class FundidoUI : MonoBehaviour
         Ocupado = false;
     }
 
-    /// <summary>Oscurece la pantalla hasta negro y la deja asi.</summary>
+    /// <summary>Oscurece la pantalla hasta negro y la deja así.</summary>
     public IEnumerator Desaparecer(float duracion)
     {
         Ocupado = true;

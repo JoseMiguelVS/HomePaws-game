@@ -12,7 +12,7 @@ public class MenuBienvenida : MonoBehaviour
     [SerializeField] private string escenaJuego = "Level1";
 
     [Header("Configuración")]
-    [Tooltip("Panel de configuración que se muestra al pulsar Configuracion. Puede quedar vacío.")]
+    [Tooltip("Panel de configuración que se muestra al pulsar Configuración. Puede quedar vacío.")]
     [SerializeField] private GameObject panelConfiguracion;
 
     [Tooltip("Panel del menú que se oculta al abrir la configuración. Puede quedar vacío.")]

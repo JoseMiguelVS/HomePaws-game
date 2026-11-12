@@ -2,32 +2,32 @@ using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// Cambia de seccion dentro del mismo nivel: al entrar el jugador activo hace
-/// un fundido, coloca al duo en el destino, cambia el fondo de la camara y
-/// mueve el punto de reaparicion.
+/// Cambia de sección dentro del mismo nivel: al entrar el jugador activo hace
+/// un fundido, coloca al dúo en el destino, cambia el fondo de la cámara y
+/// mueve el punto de reaparición.
 ///
 /// Se coloca en un objeto con un Collider2D marcado como Trigger al final de
-/// la primera seccion.
+/// la primera sección.
 /// </summary>
 [RequireComponent(typeof(Collider2D))]
 public class CambioSeccion : MonoBehaviour
 {
-    [Header("Destino del duo")]
-    [Tooltip("Donde aparece el personaje activo al cambiar de seccion.")]
+    [Header("Destino del dúo")]
+    [Tooltip("Donde aparece el personaje activo al cambiar de sección.")]
     [SerializeField] private Vector3 destino = new Vector3(83f, 28.6f, 0f);
 
-    [Tooltip("Separacion horizontal entre los dos personajes al llegar.")]
+    [Tooltip("Separación horizontal entre los dos personajes al llegar.")]
     [SerializeField] private float separacion = 1.3f;
 
-    [Header("Punto de reaparicion")]
-    [Tooltip("Nuevo punto donde reaparece el duo si se cae en esta seccion.")]
+    [Header("Punto de reaparición")]
+    [Tooltip("Nuevo punto donde reaparece el dúo si se cae en esta sección.")]
     [SerializeField] private Vector3 puntoReaparicion = new Vector3(83f, 27.9f, 0f);
 
     [Header("Fondo")]
     [SerializeField] private FondoCamara fondo;
 
     [Header("Mensaje")]
-    [SerializeField] private string mensaje = "Los tejados. El olor a hogar esta cerca.";
+    [SerializeField] private string mensaje = "Los tejados. El olor a hogar está cerca.";
 
     [Header("Fundido")]
     [SerializeField] private float duracionFundido = 0.45f;

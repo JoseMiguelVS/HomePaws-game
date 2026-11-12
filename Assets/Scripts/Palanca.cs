@@ -26,7 +26,7 @@ public class Palanca : MonoBehaviour
     [SerializeField] private bool empiezaActivada = false;
 
     [Header("Eventos")]
-    [Tooltip("Se invoca al accionarla. Opcional: la Compuerta tambien puede consultar Activada.")]
+    [Tooltip("Se invoca al accionarla. Opcional: la Compuerta también puede consultar Activada.")]
     [SerializeField] private UnityEvent alActivar;
 
     public bool Activada { get; private set; }
@@ -80,7 +80,7 @@ public class Palanca : MonoBehaviour
         return duo != null && duo.NombreActivo == personajeRequerido;
     }
 
-    /// <summary>Acciona la palanca. Tambien se puede llamar desde un boton.</summary>
+    /// <summary>Acciona la palanca. También se puede llamar desde un botón.</summary>
     public void Activar()
     {
         if (Activada)

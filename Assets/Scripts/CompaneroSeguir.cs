@@ -2,27 +2,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Hace que el companero inactivo del duo siga al personaje activo por el
+/// Hace que el compañero inactivo del dúo siga al personaje activo por el
 /// mismo camino que ha recorrido (incluidos saltos y plataformas).
 ///
-/// Mientras sigue, su cuerpo pasa a cinematico y su collider se apaga para no
-/// estorbar; al detenerse recupera la fisica normal y se queda esperando.
-/// Lo controla ControlDuo, asi que no hay que configurar nada a mano.
+/// Mientras sigue, su cuerpo pasa a cinemático y su collider se apaga para no
+/// estorbar; al detenerse recupera la física normal y se queda esperando.
+/// Lo controla ControlDuo, así que no hay que configurar nada a mano.
 /// </summary>
 [DisallowMultipleComponent]
 public class CompaneroSeguir : MonoBehaviour
 {
     [Header("Seguimiento")]
-    [Tooltip("Distancia que se mantiene detras del lider.")]
+    [Tooltip("Distancia que se mantiene detrás del líder.")]
     [SerializeField] private float separacion = 1.15f;
 
     [Tooltip("Distancia minima entre dos puntos del rastro.")]
     [SerializeField] private float pasoRastro = 0.12f;
 
-    [Tooltip("Numero maximo de puntos guardados del recorrido.")]
+    [Tooltip("Número máximo de puntos guardados del recorrido.")]
     [SerializeField] private int maximoPuntos = 240;
 
-    [Tooltip("Si el lider se aleja mas de esto de golpe (reaparicion o cambio de seccion) el rastro se reinicia.")]
+    [Tooltip("Si el líder se aleja más de esto de golpe (reaparición o cambio de sección) el rastro se reinicia.")]
     [SerializeField] private float saltoMaximo = 6f;
 
     private readonly List<Vector3> rastro = new List<Vector3>();
@@ -77,14 +77,14 @@ public class CompaneroSeguir : MonoBehaviour
         lider = nuevoLider;
         siguiendo = true;
 
-        // El rastro empieza en la posicion actual para no dar un salto brusco.
+        // El rastro empieza en la posición actual para no dar un salto brusco.
         rastro.Clear();
         rastro.Add(transform.position);
 
         AplicarModo(true);
     }
 
-    /// <summary>Deja de seguir y devuelve la fisica normal al personaje.</summary>
+    /// <summary>Deja de seguir y devuelve la física normal al personaje.</summary>
     public void Detener()
     {
         PrepararComponentes();
@@ -111,7 +111,7 @@ public class CompaneroSeguir : MonoBehaviour
 
         Vector3 posicionLider = lider.position;
 
-        // Reaparicion, cambio de seccion o reagrupacion: el rastro viejo ya no vale.
+        // Reaparición, cambio de sección o reagrupación: el rastro viejo ya no vale.
         if (rastro.Count > 0 &&
             Vector3.Distance(rastro[rastro.Count - 1], posicionLider) > saltoMaximo)
         {
@@ -131,8 +131,8 @@ public class CompaneroSeguir : MonoBehaviour
         Vector3 objetivo = CalcularObjetivo();
         float desplazamiento = objetivo.x - transform.position.x;
 
-        // El cuerpo es cinematico mientras sigue: hay que moverlo tambien a el
-        // para que la fisica y el transform no se desincronicen.
+        // El cuerpo es cinemático mientras sigue: hay que moverlo también a el
+        // para que la física y el transform no se desincronicen.
         if (cuerpo != null)
             cuerpo.position = objetivo;
 
@@ -151,7 +151,7 @@ public class CompaneroSeguir : MonoBehaviour
             control.EstablecerVelocidadSeguimiento(Mathf.Abs(desplazamiento) > 0.002f ? 1f : 0f);
     }
 
-    // Punto del recorrido que queda a 'separacion' detras del lider.
+    // Punto del recorrido que queda a 'separación' detrás del líder.
     private Vector3 CalcularObjetivo()
     {
         if (rastro.Count == 0)

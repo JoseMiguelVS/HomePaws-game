@@ -2,7 +2,7 @@ using UnityEngine;
 
 /// <summary>
 /// Llave de puzle que solo puede recoger el personaje indicado (por defecto
-/// Estrella). La Compuerta consulta Recogida, asi que no necesita eventos.
+/// Estrella). La Compuerta consulta Recogida, así que no necesita eventos.
 ///
 /// Colocarla en un objeto con SpriteRenderer (llave) y un CircleCollider2D
 /// marcado como Trigger. Conviene ponerla en una repisa alta a la que solo
@@ -22,7 +22,7 @@ public class Llave : MonoBehaviour
     [Tooltip("Cartel flotante de la llave. Se oculta al recogerla. Opcional.")]
     [SerializeField] private IndicadorFlotante indicador;
 
-    [Header("Flotacion")]
+    [Header("Flotación")]
     [SerializeField] private float alturaFlotacion = 0.18f;
     [SerializeField] private float velocidadFlotacion = 2.5f;
 
@@ -67,7 +67,7 @@ public class Llave : MonoBehaviour
         Recoger();
     }
 
-    /// <summary>Recoge la llave. Tambien se puede llamar desde otro script.</summary>
+    /// <summary>Recoge la llave. También se puede llamar desde otro script.</summary>
     public void Recoger()
     {
         if (Recogida)
