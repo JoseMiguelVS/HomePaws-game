@@ -29,7 +29,16 @@ public static class CheckpointsTejados
     private static readonly float YMin = 20f;
     private static readonly float YMax = 45f;
 
-    private const int LongitudMinima = 5;
+    private const int LongitudMinima = 2;
+
+    // Puntos objetivo dentro de los tejados (x, altura de la superficie): se
+    // ajustan a la plataforma solida mas cercana que tenga sitio libre encima.
+    private static readonly Vector2[] Objetivos =
+    {
+        new Vector2(113f, 30f),
+        new Vector2(142f, 27f),
+        new Vector2(172f, 29f)
+    };
 
     private class Plataforma
     {
@@ -39,7 +48,7 @@ public static class CheckpointsTejados
 
         public float CentroX
         {
-            get { return (CeldaInicio + CeldaFin) * 0.5f; }
+            get { return (CeldaInicio + CeldaFin + 1) * 0.5f; }
         }
 
         public int Longitud
@@ -331,34 +340,47 @@ public static class CheckpointsTejados
     }
 
     /// <summary>
-    /// Elige como maximo una plataforma por tramo, prefiriendo las mas largas
-    /// para que el checkpoint quede en una zona comoda de tocar.
+    /// Ajusta cada punto objetivo a la plataforma solida mas cercana.
     /// </summary>
     private static List<Plataforma> ElegirPlataformas(List<Plataforma> plataformas)
     {
         List<Plataforma> elegidas = new List<Plataforma>();
 
-        AnadirMejor(plataformas, elegidas, 85f, 135f);
-        AnadirMejor(plataformas, elegidas, 135f, 185f);
-
-        return elegidas;
-    }
-
-    private static void AnadirMejor(List<Plataforma> plataformas, List<Plataforma> elegidas, float desde, float hasta)
-    {
-        Plataforma mejor = null;
-
-        foreach (Plataforma p in plataformas)
+        foreach (Vector2 objetivo in Objetivos)
         {
-            if (p.CentroX < desde || p.CentroX >= hasta)
-                continue;
+            Plataforma mejor = null;
+            float mejorDistancia = float.MaxValue;
 
-            if (mejor == null || p.Longitud > mejor.Longitud)
-                mejor = p;
+            foreach (Plataforma p in plataformas)
+            {
+                if (p.CentroX < XMin + 2f || p.CentroX > XMax - 2f)
+                    continue;
+
+                float distancia = Mathf.Abs(p.CentroX - objetivo.x) +
+                                  Mathf.Abs(p.SuperficieY - objetivo.y);
+
+                if (distancia > 2f)
+                    continue;
+
+                if (distancia < mejorDistancia)
+                {
+                    mejorDistancia = distancia;
+                    mejor = p;
+                }
+            }
+
+            if (mejor == null)
+            {
+                Debug.LogWarning("CheckpointsTejados: no hay plataforma cerca de x=" + objetivo.x +
+                                 " y=" + objetivo.y);
+                continue;
+            }
+
+            if (!elegidas.Contains(mejor))
+                elegidas.Add(mejor);
         }
 
-        if (mejor != null)
-            elegidas.Add(mejor);
+        return elegidas;
     }
 
     private static void BorrarCheckpointsAnteriores(Scene escena)
@@ -397,6 +419,8 @@ public static class CheckpointsTejados
             return;
         }
 
+        QuitarNulos(lista);
+
         foreach (Checkpoint punto in nuevos)
         {
             if (YaEstaEnLista(lista, punto))
@@ -408,6 +432,28 @@ public static class CheckpointsTejados
 
         serializado.ApplyModifiedPropertiesWithoutUndo();
         EditorUtility.SetDirty(gestor);
+    }
+
+    /// <summary>
+    /// Quita de la lista las referencias a checkpoints que ya no existen
+    /// (por ejemplo, los borrados al volver a ejecutar esta herramienta).
+    /// </summary>
+    private static void QuitarNulos(SerializedProperty lista)
+    {
+        List<UnityEngine.Object> validos = new List<UnityEngine.Object>();
+
+        for (int i = 0; i < lista.arraySize; i++)
+        {
+            UnityEngine.Object valor = lista.GetArrayElementAtIndex(i).objectReferenceValue;
+
+            if (valor != null)
+                validos.Add(valor);
+        }
+
+        lista.arraySize = validos.Count;
+
+        for (int i = 0; i < validos.Count; i++)
+            lista.GetArrayElementAtIndex(i).objectReferenceValue = validos[i];
     }
 
     private static bool YaEstaEnLista(SerializedProperty lista, Checkpoint punto)
