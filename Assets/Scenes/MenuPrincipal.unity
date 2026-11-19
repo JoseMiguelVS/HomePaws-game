@@ -1604,7 +1604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40d305456b6494484084ddfe395d07c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escenaJuego: PrimerEscena
+  escenaJuego: Level1
   panelConfiguracion: {fileID: 0}
   panelMenu: {fileID: 0}
 --- !u!1660057539 &9223372036854775807

@@ -41,6 +41,10 @@ public class PlayerController : MonoBehaviour
     private float moveInput;
     private int atun;
 
+    // Lo usa CompaneroSeguir para animar al companero mientras se mueve solo.
+    private float velocidadSeguimiento;
+    private bool animacionSeguimiento;
+
     private int currentAnimationHash;
 
     private void Awake()
@@ -65,9 +69,11 @@ public class PlayerController : MonoBehaviour
 
         if (!controlActivo)
         {
-            // El personaje inactivo del duo se queda quieto en Idle.
+            // El personaje inactivo del duo se queda quieto en Idle, salvo
+            // cuando CompaneroSeguir lo esta moviendo detras del lider.
             moveInput = 0f;
             jumpRequested = false;
+            animacionSeguimiento = Mathf.Abs(velocidadSeguimiento) > 0.01f;
             UpdateAnimation();
             return;
         }
@@ -149,13 +155,26 @@ public class PlayerController : MonoBehaviour
         controlActivo = activo;
 
         if (activo)
+        {
+            velocidadSeguimiento = 0f;
+            animacionSeguimiento = false;
             return;
+        }
 
         moveInput = 0f;
         jumpRequested = false;
 
         if (rb != null)
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+    }
+
+    /// <summary>
+    /// Lo usa CompaneroSeguir: indica si el personaje se esta desplazando
+    /// solo para que reproduzca la animacion de correr.
+    /// </summary>
+    public void EstablecerVelocidadSeguimiento(float velocidad)
+    {
+        velocidadSeguimiento = velocidad;
     }
 
     private void CheckGrounded()
@@ -187,7 +206,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Mathf.Abs(moveInput) > 0.01f)
+            if (Mathf.Abs(moveInput) > 0.01f || animacionSeguimiento)
                 PlayAnimation(runAnimation);
             else
                 PlayAnimation(idleAnimation);

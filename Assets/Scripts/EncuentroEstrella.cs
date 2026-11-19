@@ -29,6 +29,19 @@ public class EncuentroEstrella : MonoBehaviour
         "Y yo puedo saltar hasta la llave. \u00a1Vamos juntos!"
     };
 
+    [Header("Aparicion (opcional)")]
+    [Tooltip("Personaje que aparece al empezar el encuentro. Si se deja vacio, Estrella ya esta en la escena.")]
+    [SerializeField] private GameObject estrella;
+
+    [Tooltip("Colocar a Estrella junto al jugador que entra en la zona.")]
+    [SerializeField] private bool colocarJuntoAlJugador = false;
+
+    [Tooltip("Desplazamiento respecto al jugador al aparecer.")]
+    [SerializeField] private Vector3 desplazamientoAparicion = new Vector3(1.5f, 0.15f, 0f);
+
+    [Tooltip("Sonido del encuentro (por ejemplo, un maullido). Si se deja vacio se usa el AudioSource del objeto.")]
+    [SerializeField] private AudioSource sonidoEncuentro;
+
     [Header("Ajustes")]
     [SerializeField] private float retardoAntesDeHablar = 0.35f;
     [SerializeField] private string mensajeFinal = "Estrella se uni\u00f3 al equipo. Pulsa TAB para cambiar de personaje.";
@@ -48,10 +61,48 @@ public class EncuentroEstrella : MonoBehaviour
 
         hecho = true;
 
+        AparecerEstrella(other.transform);
+        ReproducirSonido();
+
         if (controlDuo == null)
             controlDuo = ControlDuo.Instancia;
 
         StartCoroutine(Conversacion());
+    }
+
+    // En el Nivel 2 Estrella empieza desactivada: se coloca junto al jugador
+    // y se activa justo antes de la conversacion.
+    private void AparecerEstrella(Transform jugador)
+    {
+        if (estrella == null)
+            return;
+
+        if (colocarJuntoAlJugador)
+        {
+            Vector3 posicion = jugador.position + desplazamientoAparicion;
+            estrella.transform.position = posicion;
+
+            Rigidbody2D cuerpo = estrella.GetComponent<Rigidbody2D>();
+
+            if (cuerpo != null)
+            {
+                cuerpo.linearVelocity = Vector2.zero;
+                cuerpo.angularVelocity = 0f;
+                cuerpo.position = posicion;
+            }
+        }
+
+        estrella.SetActive(true);
+    }
+
+    private void ReproducirSonido()
+    {
+        AudioSource fuente = sonidoEncuentro != null
+            ? sonidoEncuentro
+            : GetComponent<AudioSource>();
+
+        if (fuente != null)
+            fuente.Play();
     }
 
     private IEnumerator Conversacion()
